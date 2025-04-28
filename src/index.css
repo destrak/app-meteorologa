@@ -1,68 +1,143 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
+  font-family: Arial, sans-serif;
   margin: 0;
+  padding: 0;
+  color: #ffffff;
+  min-height: 100vh; 
+  position: relative;
+  display: block;
+  flex-direction: column;
+  background: linear-gradient(135deg, #121212 0%, #3b3195 100%);
+}
+
+header {
+  /* Replace solid header color with a gradient */
+  padding: 30px;
+  position: relative;
+}
+
+/* Other styles remain unchanged */
+/* header */
+header h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+nav {   
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: space-between;
+  align-items: center;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+nav ul li {
+  margin-right: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #000000;
+}
+.home-button a {
+  background-color: #282a41;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  float: right;
+  margin-right: 1px;
+}
+
+.home-button a:hover { 
+  background-color: #926092;
+}
+
+.home-icon {
+  width: 24px;
+  height: 24px;
+  
+}
+
+/* sección de es esta su ubicacion */
+.ubicacion-container {
+  position: fixed;
+  bottom: 100px; 
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: 0 auto;
+  color: #ffffff;
+}
+
+.ubicacion-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px; 
+}
+
+.ubicacion-button {
+  background-color: #3b3195;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 10px;
+  font-weight: bold;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: background-color 0.3s;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.ubicacion-button.yes {
+  background-color: #00cc66; 
+}
+
+.ubicacion-button.no {
+  background-color: #ff6666; 
+}
+
+.ubicacion-button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+/*Pagina 3*/
+
+.bottom-content {
+  position: fixed;
+  bottom: 90px; 
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 500px;
+}
+
+.instruction {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.accept-button {
+  display: inline-block;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 15px 40px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
 }
