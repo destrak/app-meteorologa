@@ -5,7 +5,7 @@ import React from 'react';
 function UbicationQuery(props) {
     return (
         <>
-            <nav>
+            <nav className="ubication-query-container">
                     <div className="header-container">
                         <h1 className="header-text">Bienvenido, {props.name}!
                         </h1>
