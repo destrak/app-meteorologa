@@ -4,7 +4,13 @@ import ZonaHoraria from './zonahoraria.jsx'
 import CajaDia from './CajaDia.jsx'
 import CajaHora from './CajaHora.jsx'
 import CajaHoraria from './CajaHoraria.jsx'
+import Ubicacion from './ubicacion.jsx'
 function App() {
+    const [ciudadSeleccionada, setCiudadSeleccionada] = useState("Santiago");
+  
+    const manejarSeleccionCiudad = (ciudad) => {
+      setCiudadSeleccionada(ciudad);
+    };
 
   return (
     <>
@@ -18,7 +24,8 @@ function App() {
       <h1>Bienvenido a [Nombre]!</h1>
       <main>
         <ZonaHoraria />
-        <CajaHoraria/>
+        <Ubicacion onSeleccionarCiudad={manejarSeleccionCiudad} />
+        <CajaHoraria ciudad={ciudadSeleccionada} />
       </main>
       <div className="ubicacion-container">
           <h2>¿Es esta su ubicación?</h2>
