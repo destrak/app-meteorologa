@@ -11,7 +11,7 @@ body {
   flex-direction: column;
   background-image: url("./assets/background-clouds.gif");
   background-repeat: no-repeat;
-  background-size: cover; /* or 'contain' depending on your needs */
+  background-size: cover; 
   background-position: center;
 }
 
@@ -208,7 +208,7 @@ nav .header-text {
   margin-bottom: 30px; 
 }
 
-.ubicacion-buttons {/* Remove extra margin to align closely under header-text */
+.ubicacion-buttons {
   display: flex;
   justify-content: center;
   gap: 20px; 
@@ -235,42 +235,58 @@ nav .header-text {
 }
 
 /*Popups*/
+/*Popup container*/
 .popup-overlay {
-  position: absolute;
+  position: fixed; 
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5); /*Hace que se ennegrezca el fondo*/
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 900; /* Arriba de otros elementos, excepto la nav bar */
+  z-index: 1010; /* Arriba de la barnav!! requiero opiniones */
+  overflow: hidden; /* Para que no haga overflow */
 }
 
+/*El cuadrado del popup*/
 .popup-content {
-  background-color: hsla(0, 0%, 0%, 0.847); 
-  padding: 20px;
+  background-color:hsla(0, 0%, 26%, 0.5); 
+  padding: 25px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-  text-align: center;
-  margin-top: 5%;
-  max-width: 95%; 
+  max-width: 90%; 
   max-height: 80%; 
-  position: relative; /* To position the close button inside */
+  overflow-y: auto; 
+  position: relative;
+  top: 5%;
 }
 
 .close-popup-button {
-  background-color: hsla(0, 0%, 26%, 0.5);
-  border: none; 
-  padding: 10px 10px;
-  border-radius: 10px;
+  background-color: hsla(0, 0%, 100%, 0.958);
+  border: none;
+  padding: 5px; 
+  border-radius: 10px; 
   cursor: pointer;
   transition: background-color 0.3s;
-  position: relative;
-  left:15vh;
+  position: absolute; /*me estaba dando rabia asi que lo deje chiquito por absolute. perdon*/
+  top: 10px; 
+  right: 10px; 
+  width: 30px; 
+  height: 30px;
 }
-/*tiempo*/
+
+.close-popup-button:hover {
+  background-color: hsla(0, 0%, 70%, 0.7); 
+}
+
+.close-popup-icon {
+  width: 20px; 
+  height: 20px;
+}
+
+/*Elementos de implementacion nico*/
+
 .clock-container{
 
 }
@@ -286,14 +302,14 @@ nav .header-text {
 }
 /*BOX*/
 .tiempo_hora_contenedor {
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(19, 19, 19);
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   display: flex;
   overflow-x: auto;
   gap: 1.5rem;
-  min-width: 100%;
+  min-width: 50%;
 }
 
 /* Cada hora (vertical) */
@@ -301,7 +317,8 @@ nav .header-text {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 60px;
+  min-width: 47px;
+  max-width: 90%;
 }
 
 .hora {
@@ -326,7 +343,7 @@ nav .header-text {
   align-items: center;
   padding: 0.5rem 1rem;
   border-bottom: 1px solid #000000; /* tailwind border-gray-200 */
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(19, 19, 19);
 }
 
 .tiempo_dia:last-child {
@@ -361,4 +378,15 @@ nav .header-text {
 
 .dia_datos .temp_maxmin {
   font-weight: bold;
+}
+
+/*elementos de merge*/
+
+.popup-clima-container{
+  background-color: hsl(0, 0%, 0%);
+  padding: 5%;
+  margin-top: 10%;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
 }
