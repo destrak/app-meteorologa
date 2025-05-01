@@ -1,11 +1,15 @@
-import { useState } from 'react'
+import { useState } from 'react'  
 import './App.css'
+import BarNav from './components/BarNav';
+import UbicationQuery from './components/UbicationQuery';
+
 import ZonaHoraria from './zonahoraria.jsx'
 import CajaDia from './CajaDia.jsx'
 import CajaHora from './CajaHora.jsx'
 import CajaHoraria from './CajaHoraria.jsx'
 import Ubicacion from './ubicacion.jsx'
 function App() {
+  const usuario = "Lorem ipsum";
     const [ciudadSeleccionada, setCiudadSeleccionada] = useState("Santiago");
   
     const manejarSeleccionCiudad = (ciudad) => {
@@ -14,6 +18,8 @@ function App() {
 
   return (
     <>
+      <BarNav />
+      <UbicationQuery name={usuario} />
       <nav>
         <div className="home-button">
             <a href="index.html">
@@ -35,7 +41,7 @@ function App() {
           </div>
       </div>
     </>
-  )
+  );
 }
 
 export default App
