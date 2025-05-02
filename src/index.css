@@ -390,3 +390,45 @@ nav .header-text {
   color: white;
   text-align: center;
 }
+
+/*Weather Card*/
+.weather-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.weather-card {
+  background-color: #1e1e1e;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 0 1em #646cff33;
+  transition: transform 0.2s ease;
+}
+
+.weather-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 2em #646cff55;
+}
+
+.weather-card h2 {
+  margin: 0.5rem 0;
+  color: #61dafb;
+}
+
+.weather-card p {
+  margin: 0.25rem 0;
+  color: #eee;
+}
+
+.weather-card.error {
+  background-color: #3b1f1f;
+  color: #ffcccc;
+  border: 1px solid #ff4d4d;
+}
+
+.weather-card.loading {
+  opacity: 0.6;
+  color: #ccc;
+}

@@ -1,7 +1,7 @@
 import xImage from '../assets/x.svg';
-import ZonaHoraria from '../ZonaHoraria.jsx';
-import Ubicacion from '../Ubicacion.jsx';
-import CajaHoraria from '../CajaHoraria.jsx';
+import ZonaHoraria from './ZonaHoraria.jsx';
+import Ubicacion from './Ubicacion.jsx';
+import CajaHoraria from './CajaHoraria.jsx';
 import React, { useState } from 'react';
 
 

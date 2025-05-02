@@ -5,11 +5,6 @@ import UbicationQuery from './components/UbicationQuery';
 
 function App() {
   const usuario = "Lorem ipsum";
-    const [ciudadSeleccionada, setCiudadSeleccionada] = useState("Santiago");
-  
-    const manejarSeleccionCiudad = (ciudad) => {
-      setCiudadSeleccionada(ciudad);
-    };
 
   return (
     <>

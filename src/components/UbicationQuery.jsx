@@ -12,6 +12,12 @@ function UbicationQuery(props) {
         setShowYesPopup(false); // Cerrar Yespopup
     };
 
+    const locations = [
+        { lat: -36.82, lon:  -73.04 }, //Conce
+    ];
+
+    const index = 0;
+
     return (
         <>
             <nav className="ubication-query-container">
@@ -22,6 +28,12 @@ function UbicationQuery(props) {
                             <button className="ubicacion-button" onClick={handleYesClick}>Insertar Ubicación</button>
                             {showYesPopup && <YesPopup onClose={handleClosePopup} />}
                         </div>
+                    </div>
+                    <h2>Clima en distintas ciudades</h2>
+                    <div className='weather-grid'>
+                    {locations.map((loc) => (
+                        <WeatherCard lat={loc.lat} lon={loc.lon} />
+                    ))}
                     </div>
                 </div>
             </nav>
