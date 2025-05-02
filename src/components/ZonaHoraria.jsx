@@ -1,4 +1,4 @@
-import React, {useState, use,Effects, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 function ZonaHoraria(){
     const[time, setTime] =useState(new Date());
     useEffect(()=>{

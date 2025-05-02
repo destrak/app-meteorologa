@@ -1,14 +1,16 @@
 import xImage from '../assets/x.svg';
 import ZonaHoraria from '../ZonaHoraria.jsx';
 import Ubicacion from '../Ubicacion.jsx';
-import CajaHoraria from '../CajaHoraria.jsx';
+import Ubicacion2 from './Ubicacion2.jsx';
+import CajaHoraria from './CajaHoraria.jsx';
 import React, { useState } from 'react';
 
 
 function YesPopup({ onClose }) {
 
     const usuario = "Lorem ipsum";
-    const [ciudadSeleccionada, setCiudadSeleccionada] = useState("Santiago");
+    const [sel_lat, setlat] = useState(null);
+    const [sel_lon, setlon] = useState(null);
   
     const manejarSeleccionCiudad = (ciudad) => {
       setCiudadSeleccionada(ciudad);
@@ -22,8 +24,11 @@ function YesPopup({ onClose }) {
                 </button>
                 <div className="popup-clima-container">
                     <ZonaHoraria />
-                    <Ubicacion onSeleccionarCiudad={manejarSeleccionCiudad} />
-                    <CajaHoraria ciudad={ciudadSeleccionada} />
+                    <Ubicacion2 onlat={setlat} onlon={setlon} />
+                    <CajaHoraria lat={sel_lat} lon={sel_lon} />
+                    {/*<Ubicacion onlat={setlat} onlon={setlon} />
+                    <CajaHoraria ciudad={ciudadSeleccionada} />*/}
+
                 </div>
                 
             </div>
