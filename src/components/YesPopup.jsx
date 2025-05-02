@@ -1,8 +1,10 @@
 import xImage from '../assets/x.svg';
-import ZonaHoraria from '../ZonaHoraria.jsx';
+import ZonaHoraria from './ZonaHoraria.jsx';
 import Ubicacion from './Ubicacion.jsx';
 import CajaHoraria from './CajaHoraria.jsx';
 import React, { useState } from 'react';
+import Ubicacion2 from './Ubicacion2.jsx';
+import Ubicacion3 from './Ubicacion3.jsx';
 
 
 function YesPopup({ onClose }) {
@@ -23,10 +25,9 @@ function YesPopup({ onClose }) {
                 </button>
                 <div className="popup-clima-container">
                     <ZonaHoraria />
-                    <Ubicacion onlat={setlat} onlon={setlon} />
+                    <Ubicacion3 onlat={setlat} onlon={setlon} />
+                    {/*<Ubicacion onlat={setlat} onlon={setlon} />*/}
                     <CajaHoraria lat={sel_lat} lon={sel_lon} />
-                    {/*<Ubicacion onlat={setlat} onlon={setlon} />
-                    <CajaHoraria ciudad={ciudadSeleccionada} />*/}
 
                 </div>
                 

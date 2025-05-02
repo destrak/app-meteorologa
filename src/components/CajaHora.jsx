@@ -1,7 +1,7 @@
 function CajaHora({ hora }) {
     const opcionesHora = {
       hour: 'numeric',
-      hour12: true, // Para formato de 12 horas con AM/PM
+      hour12: true,
     };
     const hora_act = new Date(hora.dt*1000).toLocaleTimeString(undefined, opcionesHora)
     return (

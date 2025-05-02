@@ -7,16 +7,21 @@ function Ubicacion({ onlat, onlon }) {
   const suggestionsRef = useRef(null);
 
   const Ciudades_Cords = [
-    { name: "Concepción", lat: -36.83, lon: -73.05 },
+    { name: "Concepción", lat: -36.82, lon: -73.04 },
     { name: "Santiago", lat: -33.45, lon: -70.64 },
     { name: "Concon", lat: -32.93, lon: -71.52 },
-    { name: "Valparaíso", lat: -33.04, lon: -71.62 },
+    { name: "Valparaíso", lat: -33.04, lon: -71.61 },
     { name: "Rancagua", lat: -34.17, lon: -70.74 },
     { name: "Temuco", lat: -38.73, lon: -72.60 },
     { name: "Chillán", lat: -36.60, lon: -72.10 },
     { name: "Copiapó", lat: -27.37, lon: -70.33 },
     { name: "Coquimbo", lat: -29.95, lon: -71.34 },
-    { name: "Coronel", lat: -37.02, lon: -73.15 }
+    { name: "Coronel", lat: -37.02, lon: -73.15 },
+    { nombre: "La Serena", lat: -29.90, lon: -71.25 },
+    { nombre: "Antofagasta", lat: -23.65, lon: -70.39 },
+    { nombre: "Puerto Montt", lat: -41.47, lon: -72.93 },
+    { nombre: "Temuco", lat: -38.73, lon: -72.59 },
+    { nombre: "Iquique", lat: -20.21, lon: -70.15 },
   ];
 
   const manejarCambio = (e) => {
