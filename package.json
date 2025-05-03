@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://destrak.github.io/app-meteorologa",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -29,5 +30,5 @@
     "globals": "^15.15.0",
     "vite": "^6.3.3"
   },
-  "homepage": "https://destrak.github.io/app-meteorologa"
+
 }
