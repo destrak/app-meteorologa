@@ -10,7 +10,6 @@ function CajaHoraria({ lat, lon }) {
   const [dias, setDias] = useState([]);
   const [loading, setLoading] = useState(true);
   const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY
-  const apiUrl= `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`
   
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +22,7 @@ function CajaHoraria({ lat, lon }) {
       setError(null);
 
       try {
-        const apiUrl= `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`
+        const apiUrl= `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric&cnt=80`
         const responseF = await fetch(apiUrl);
         const jsonF = await responseF.json();
         setDataForecast(jsonF);

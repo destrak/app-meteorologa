@@ -2,6 +2,7 @@ const getDailyForecasts = (hourlyData) => {
     const dailyForecasts = {};    
     const opcionesDia = {
       day: 'numeric',
+      month: 'numeric'
     };
 
     hourlyData.forEach((item) => {
@@ -22,7 +23,7 @@ const getDailyForecasts = (hourlyData) => {
       }
     });
 
-    return Object.keys(dailyForecasts).slice(0, 5).map((date) => {
+    return Object.keys(dailyForecasts).slice(0, 9).map((date) => {
       const dailyData = dailyForecasts[date];
       const precipitation = (dailyData.rainOccurrences*100)/dailyData.timestamps
       const representativeIcon = dailyData.icons[Math.floor(dailyData.icons.length / 2)]; 
