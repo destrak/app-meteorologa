@@ -12,7 +12,6 @@ function Ubicacion3({ onlat, onlon }) {
     { name: "Concon", lat: -32.93, lon: -71.52 },
     { name: "Valparaíso", lat: -33.04, lon: -71.61 },
     { name: "Rancagua", lat: -34.17, lon: -70.74 },
-    { name: "Temuco", lat: -38.73, lon: -72.60 },
     { name: "Chillán", lat: -36.60, lon: -72.10 },
     { name: "Copiapó", lat: -27.37, lon: -70.33 },
     { name: "Coquimbo", lat: -29.95, lon: -71.34 },
