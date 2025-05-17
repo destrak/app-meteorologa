@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import YesPopup from './YesPopup.jsx';
-
 function UbicationQuery(props) {
     const [showYesPopup, setShowYesPopup] = useState(false);
 
