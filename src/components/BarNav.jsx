@@ -42,7 +42,9 @@ function BarNav() {
                                 Cuenta
                             </Link>
 
-                            <a href="#salir" className="dropdown-item">Salir</a>
+                            <Link to="/login" className="dropdown-item" onClick={() => setShowMenu(false)}>
+                                Log out
+                            </Link>
                         </div>
                     )}
                 </div>

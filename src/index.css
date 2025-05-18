@@ -585,3 +585,69 @@ nav .header-text {
   opacity: 0.9;
   transform: scale(1.05);
 }
+
+/*actividades*/
+.actividades-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.actividades-titulo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.actividades-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.actividad-item {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.actividad-item:hover {
+  transform: scale(1.02);
+}
+
+.actividad-header h3 {
+  margin: 0;
+}
+
+.actividad-meta {
+  color: #555;
+  font-size: 14px;
+}
+
+.actividad-descripcion {
+  margin-top: 10px;
+  color: #333;
+}
+/* boton prefrencias */
+.boton-negro {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 20px 60px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: large;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.boton-negro:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
