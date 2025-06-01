@@ -651,3 +651,104 @@ nav .header-text {
   opacity: 0.9;
   transform: scale(1.05);
 }
+
+/* 📦 Contenedor general para ubicación + tablas */
+.layout-general {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px; /* Separación entre secciones */
+  padding: 40px 20px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* 🔹 Contenedor de Preferencias + Tarjetas */
+.contenedor-preferencias-y-tabla {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  gap: 24px;
+  background-color: #1a202c;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  color: white;
+}
+
+/* 🔘 Barra de botones de preferencia */
+.barra-preferencias {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.pref-btn {
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: none;
+  background-color: #2d3748;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pref-btn:hover {
+  background-color: #4a5568;
+}
+
+.pref-btn.active {
+  background-color: #4a5568;
+}
+
+/* 🃏 Contenedor de tarjetas (máx. 3 por fila) */
+.tarjetas-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* 🎴 Tarjeta individual */
+.tarjeta {
+  width: 220px;
+  background-color: #2d3748;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  padding: 16px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.tarjeta:hover {
+  transform: scale(1.05);
+  background-color: #4a5568;
+}
+
+.tarjeta-titulo {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.tarjeta-descripcion {
+  font-size: 14px;
+  color: #e2e8f0;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.tarjeta-extra {
+  font-size: 13px;
+  color: #cbd5e0;
+  text-align: center;
+}
+
