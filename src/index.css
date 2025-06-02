@@ -1,7 +1,7 @@
 
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
   color: #ffffff;
@@ -412,61 +412,49 @@ nav .header-text {
 
 /*Login Signup*/
 
-.login_bg{ /*TODO: El diablo. Debe haber una forma mas bonita de poner un bg distinto para cada pagina*/
-  position: fixed; 
-  top: 0;
-  left: 0; /*Que empiecen en la esquina superior izquierda*/
-  width: 100%;  
-  height: 100%; /* Que cubra el 100% de la pantalla*/
-  --color: rgba(114, 114, 114, 0.3);
-  background-color: #191a1a;
-  background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
-      linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
-  background-size: 55px 55px;
-  /*Del Uiverse*/
-  display: flex; /* Hace que los elementos respondan a aligns creo*/
-  justify-content: center; 
-  align-items: center; /*Fuerza de que estén en el centro*/
-  z-index: 100; /*Para que esté por encima del background*/
-}
-
-
-.login_container {
+/* Center the login page vertically and horizontally */
+.login_bg {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  background-color: #000000b6;
-  border-radius: 10px;
-  margin:auto;
-  padding: 5%;
+  background-image: none !important;
+  background-color: #10154d;
 
 }
 
-.login_header{
-  color: #ffffff;
-  font-size: 50px;
-  font-weight: bold;
-  text-align: center;
-  border-radius: 9px;
-  width: auto;
-  height: auto;
-}
-
-.login_inputs{
-  margin-top: 55px;
+/* Make the login container about 1/4 of the viewport */
+.login_container {
+  background-color: #1a237e;
+  color: rgb(232, 233, 242);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  max-width: 45vw;
+  max-height: 65vh;
 }
 
+.login_text{
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color:rgb(232, 233, 242);
+  text-align: left;
+}
+
+
 .login_input{
-  display:flex;
+  display: flex;
   align-items: center;
   margin: auto;
-  width: 480px;
-  height: 80px;
-  background: #e7e7e7;
+  width: 30vw;
+  height: 50px;
+  background: transparent;
+  border: 1px solid rgb(232, 233, 242); 
   border-radius: 10px;
 }
 
@@ -477,13 +465,28 @@ nav .header-text {
   border-radius: 10px;
   border: none;
   outline:none;
-  color: #000000;
+  color:rgb(232, 233, 242);
   padding-left: 20px;
-  font-size: 20px;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
 }
 
 .login_input img{
   margin: 0px 30px;
+  max-height: 3vh;
+  max-width: 3vh;
+}
+
+.login-pswrd-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
 }
 
 .login_submit_container{
@@ -495,22 +498,47 @@ nav .header-text {
 }
 
 .login_submit_button{
-  background-color: #3b3195;
-  color:white;
+  background-color: #1570EF;
+  color: white;
   border: none;
   padding: 20px 60px;
   margin-top: 25px;
   margin-bottom: 25px;
   border-radius: 10px;
   font-weight: bold;
-  font-size:large;
+  font-size: large;
   cursor: pointer;
+  width: 30vw;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: opacity 0.3s, transform 0.2s;
 }
 
 .login_submit_button:hover {
   opacity: 0.9;
-  transform: scale(1.05);
+  transform: scale(1.01);
 }
+.login-text{
+  color: #ffffff; /* Change this to any color you want, e.g., #ff9900 for orange */
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.login-text a {
+  color: #1570EF; /* Set your desired color */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-text a:visited {
+  color: #1570EF; /* Same color for visited links */
+}
+
+
 
 /*Quiz*/
 

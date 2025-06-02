@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    min-height: 100vh; 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #121212 0%, #3b3195 100%);
+}
+
+header {
+    /* Replace solid header color with a gradient */
+    padding: 30px;
+    position: relative;
+}
+
+/* Other styles remain unchanged */
+/* header */
+header h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+nav {   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #000000;
+}
+.home-button a {
+    background-color: #282a41;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    float: right;
+    margin-right: 20px;
+}
+
+.home-button a:hover { 
+    background-color: #926092;
+}
+
+.home-icon {
+    width: 24px;
+    height: 24px;
+    
+}
+
+/* sección de es esta su ubicacion */
+.ubicacion-container {
+    position: fixed;
+    bottom: 100px; 
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 0 auto;
+    color: #ffffff;
+}
+
+.ubicacion-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px; 
+}
+
+.ubicacion-button {
+    background-color: #3b3195;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.ubicacion-button.yes {
+    background-color: #00cc66; 
+}
+
+.ubicacion-button.no {
+    background-color: #ff6666; 
+}
+
+.ubicacion-button:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+/*Pagina 3*/
+
+.bottom-content {
+    position: fixed;
+    bottom: 90px; 
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 500px;
+}
+
+.instruction {
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.accept-button {
+    display: inline-block;
+    background-color: #00cc66;
+    color: white;
+    text-align: center;
+    padding: 15px 40px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
