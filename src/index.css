@@ -538,6 +538,50 @@ nav .header-text {
   color: #1570EF; /* Same color for visited links */
 }
 
+/* Google Auth Button */
+.google_auth_button {
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  width: 30vw;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.google_auth_button:hover {
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Ajustes para el formulario de registro */
+.login_container h3 {
+  color: rgb(232, 233, 242);
+  font-size: 0.9rem;
+  font-weight: normal;
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+
+.login_container h3:first-child {
+  margin-top: 0;
+}
+
+/* Placeholder text color */
+.login_input input::placeholder {
+  color: rgba(232, 233, 242, 0.5);
+  font-size: 0.9rem;
+}
+
 
 
 /*Quiz*/
