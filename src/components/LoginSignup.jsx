@@ -53,7 +53,7 @@ function LoginSignup({ isRegister = false }) {
             
             if (result.success) {
                 // El registro hace auto-login, navegamos a la página principal
-                navigate("/");
+                navigate("/home");
             } else {
                 alert(result.error);
             }
@@ -67,7 +67,7 @@ function LoginSignup({ isRegister = false }) {
             const result = await login(formData.email, formData.password);
             
             if (result.success) {
-                navigate("/");
+                navigate("/home");
             } else {
                 alert(result.error);
             }
@@ -82,7 +82,7 @@ function LoginSignup({ isRegister = false }) {
         <div className="login_container">
             <div className="login_header">
                 <div className="login_text">
-                    {isRegister ? 'Create an account' : 'Inicie Sesión'}
+                    {isRegister ? 'Registrarse' : 'Inicie Sesión'}
                 </div>
             </div>
             <div className="login_inputs">
@@ -121,7 +121,7 @@ function LoginSignup({ isRegister = false }) {
                         name="password"
                         value={formData.password}
                         onChange={handleInputChange}
-                        placeholder={isRegister ? "Enter your password" : ""}
+                        placeholder={isRegister ? "Ingrese su contraseña" : ""}
                     />
                     <button className="login-pswrd-button" onClick={togglePasswordVisibility}>
                         <img src={showPassword ? open_eye : closed_eye} alt="Toggle Password Visibility" />
@@ -137,7 +137,7 @@ function LoginSignup({ isRegister = false }) {
                                 name="confirmPassword"
                                 value={formData.confirmPassword}
                                 onChange={handleInputChange}
-                                placeholder="Enter your password"
+                                placeholder="Confirmar contraseña"
                             />
                             <button className="login-pswrd-button" onClick={toggleConfirmPasswordVisibility}>
                                 <img src={showConfirmPassword ? open_eye : closed_eye} alt="Toggle Password Visibility" />
@@ -152,7 +152,7 @@ function LoginSignup({ isRegister = false }) {
                     onClick={handleSubmit}
                     disabled={loading}
                 >
-                    {loading ? 'Cargando...' : (isRegister ? 'Create account' : 'Login')}
+                    {loading ? 'Cargando...' : (isRegister ? 'Registrarse' : 'Iniciar Sesión')}
                 </button>
             </div>
 
@@ -169,7 +169,7 @@ function LoginSignup({ isRegister = false }) {
 
             <p className="login-text">
                 {isRegister ? (
-                    <>Already Have An Account? <a href="/login">Log In</a></>
+                    <>Ya tienes una cuenta? <a href="/login">Iniciar Sesión</a></>
                 ) : (
                     <>¿No tienes una cuenta? <a href="/register">Registrate</a></>
                 )}

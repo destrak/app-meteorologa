@@ -30,7 +30,7 @@ function BarNav() {
                     <h1 className="BarNav-Title">App Meteorológica</h1>
                 </div>
                 <div className="BarNav-Right" ref={menuRef}>
-                   <Link to="/" className="nav-button home">
+                   <Link to="/home" className="nav-button home">
                     <img src={homeImage} alt="Home" className="home-icon" />
                     </Link>
                     <button onClick={toggleMenu} className="nav-button setting">
@@ -40,10 +40,6 @@ function BarNav() {
                         <div className="dropdown-menu">
                             <Link to="/cuentas" className="dropdown-item" onClick={() => setShowMenu(false)}>
                                 Cuenta
-                            </Link>
-
-                            <Link to="/login" className="dropdown-item" onClick={() => setShowMenu(false)}>
-                                Log out
                             </Link>
                         </div>
                     )}

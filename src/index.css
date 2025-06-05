@@ -602,17 +602,16 @@ nav .header-text {
   padding: 20px;
   color: white;
   width: 300px;
-  height: 450px;
+  min-height: 450px;
+  height: auto;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  align-self: center;
-
-  /* 👇 estas líneas centran internamente el contenido */
+  align-self: flex-start;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 10px;
+  overflow: hidden;
 }
 
 
@@ -1058,4 +1057,40 @@ nav .header-text {
 
 .mb-4 option {
   color: #23265d;
+}
+
+/* Información adicional del usuario en la página de cuenta */
+.cuenta-info-adicional {
+  width: calc(100% - 20px);
+  text-align: left;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.cuenta-info-adicional h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: white;
+}
+
+.cuenta-info-adicional p {
+  font-size: 14px;
+  margin-bottom: 10px;
+  opacity: 0.9;
+  color: white;
+}
+
+.cuenta-ubicacion,
+.cuenta-coordenadas,
+.cuenta-fecha-registro {
+  padding: 5px 0;
+}
+
+.cuenta-info-adicional strong {
+  font-weight: 600;
+  margin-right: 5px;
 }
