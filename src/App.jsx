@@ -7,7 +7,10 @@ import Login from "./Pages/Login";
 import Preguntas from "./Pages/Preguntas";
 
 function App() {
-  const usuario = "Lorem ipsum";
+ const usuario = {
+  nombre: "Lorem ipsum",
+  email: "Loremipsum@gmail.com"
+};
 
   return (
 
@@ -17,6 +20,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/preguntas" element={<Preguntas />} />
         <Route path="/cuentas" element={<Cuentas usuario={usuario} />} />
+
       </Routes>
     </Router>
   );

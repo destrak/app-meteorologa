@@ -586,71 +586,158 @@ nav .header-text {
   transform: scale(1.05);
 }
 
+<<<<<<< Updated upstream
 /*actividades*/
+=======
+
+/* APARTADO DE TABLA ACTIVIDAD RECOMENTADADA */
+
+/* 📦 Contenedor general */
+>>>>>>> Stashed changes
 .actividades-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  font-family: Arial, sans-serif;
-}
-
-.actividades-titulo {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.actividades-lista {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  flex-grow: 1;
+  height: 100%;
 }
 
+/* 🧠 Título */
+.actividades-titulo {
+  color: white;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+/* 🧾 Lista scrollable */
+.actividades-lista {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 5px;
+  margin-bottom: 10px;
+}
+
+/* 🧱 Tarjeta individual */
 .actividad-item {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 16px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  background-color: #9fa8da;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #000;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }
 
 .actividad-item:hover {
   transform: scale(1.02);
 }
 
-.actividad-header h3 {
-  margin: 0;
+.actividad-header {
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .actividad-meta {
-  color: #555;
   font-size: 14px;
+  color: #333;
+  margin-top: 4px;
 }
 
 .actividad-descripcion {
-  margin-top: 10px;
-  color: #333;
-}
-/* boton prefrencias */
-.boton-negro {
-  background-color: #000000;
-  color: white;
-  border: none;
-  padding: 20px 60px;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: large;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #222;
 }
 
-.boton-negro:hover {
+/* 🎯 Botón de preferencias */
+.boton-preferencias {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: center;
+  margin-top: 10px;
+}
+
+.boton-preferencias:hover {
   opacity: 0.9;
   transform: scale(1.05);
 }
+/* === Cuenta (paneles) === */
+.cuenta-contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* ← NO centramos todo */
+  gap: 40px;
+  padding-top: 100px;
+  padding-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+
+/* Panel izquierdo */
+.cuenta-panel-izquierdo {
+  background-color: #1a237e;
+  border-radius: 16px;
+  padding: 20px;
+  color: white;
+  width: 300px;
+  height: 450px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  align-self: center;
+
+  /* 👇 estas líneas centran internamente el contenido */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+
+
+
+.cuenta-foto-perfil {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 3px solid white;
+}
+
+.cuenta-nombre {
+  margin: 0;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.cuenta-email {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Panel derecho */
+.cuenta-panel-derecho {
+  background-color: #1a237e;
+  border-radius: 16px;
+  padding: 30px;
+  color: white;
+  width: 100%;
+  max-width: 800px;
+  height: 450px; /* ✅ necesario para centrar respecto a esto */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
 
 /* 📦 Contenedor general para ubicación + tablas */
 .layout-general {
