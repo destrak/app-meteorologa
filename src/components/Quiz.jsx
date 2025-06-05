@@ -1,25 +1,76 @@
-import { useState} from 'react';
+import preguntas from './preguntas.js';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Quiz() {
-    const [userAnswers, setUserAnswers] = useState([]);
-    const navigate = useNavigate();
+  const [preguntaActual, setPreguntaActual] = useState(0);
+  const [respuestas, setRespuestas] = useState([]); // Guarda los tipos seleccionados
+  const [finalizado, setFinalizado] = useState(false);
+  const navigate = useNavigate();
 
-    return(
+  function handleAnswer(tipoSeleccionado) {
+    const nuevasRespuestas = [...respuestas, tipoSeleccionado];
+    setRespuestas(nuevasRespuestas);
+
+    if (preguntaActual + 1 < preguntas.length) {
+      setPreguntaActual(preguntaActual + 1);
+    } else {
+      setFinalizado(true);
+    }
+  }
+
+  // Calcula el tipo más seleccionado
+  function obtenerTipoMasSeleccionado() {
+    const conteo = {};
+    respuestas.forEach(tipo => {
+      conteo[tipo] = (conteo[tipo] || 0) + 1;
+    });
+    // Busca el tipo con mayor cantidad
+    let maxTipo = null;
+    let maxCantidad = 0;
+    for (const tipo in conteo) {
+      if (conteo[tipo] > maxCantidad) {
+        maxCantidad = conteo[tipo];
+        maxTipo = tipo;
+      }
+    }
+    return maxTipo;
+  }
+
+  return (
+    <main className="quiz app-vertical">
+      {!finalizado ? ( /* Loop principal*/
         <>
-            <div className="quiz_container">
-                <h1 className="quiz_title">Quiz</h1>
-                <div className="quiz_question">
-                    <p>Cuanto es 2+2?</p>
-                    <button className="quiz_option_button A" onClick={() => setUserAnswers([...userAnswers, '1'])}>1 y alargo el boton</button>
-                    <button className="quiz_option_button B" onClick={() => setUserAnswers([...userAnswers, '2'])}>2 y alargo el boton</button>
-                    <button className="quiz_option_button C" onClick={() => setUserAnswers([...userAnswers, '3'])}>3 y alargo el boton</button>
-                </div>
-                <div className="quiz-finish">
-                    <button className="quiz_finish_button" onClick={() => navigate("/")}>Finalizar</button>
-                </div>
+          <h1>Pregunta {preguntaActual + 1} de {preguntas.length}</h1>
+          <div className="titulo-pregunta">
+            <div className="pregunta-titulo">{preguntas[preguntaActual].titulo}</div>
+            <div className="titulo-pregunta-texto">
+              {preguntas[preguntaActual].opciones.map((respuesta, idx) => (
+                <button
+                  key={idx}
+                  className="boton-respuesta"
+                  onClick={() => handleAnswer(respuesta.isSelected)}
+                >
+                  {respuesta.textoRespuesta}
+                </button>
+              ))}
             </div>
+          </div>
         </>
-    );
+      ) : (
+        <div>
+          <h2>¡Cuestionario finalizado!</h2>
+          <p>
+            El tipo de respuesta más seleccionado fue:{" "}
+            <strong>{obtenerTipoMasSeleccionado()}</strong>
+          </p>
+          <button className="quiz-home-button" onClick={() => navigate('/')}>
+            Finalizar
+          </button>
+        </div>
+      )}
+    </main>
+  );
 }
+
 export default Quiz;
