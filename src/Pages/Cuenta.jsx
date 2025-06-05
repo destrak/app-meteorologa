@@ -1,21 +1,26 @@
+import React from 'react';
 import BarNav from '../components/BarNav';
 import ActividadesRecomendadas from '../components/ActividadesRecomendadas';
+import usuarioImg from '../assets/usuario.jpg'; // Ruta de tu imagen
 
 function Cuenta({ usuario }) {
-  // ✅ Esta función estaba faltando
-  const manejarCambioPreferencias = () => {
-    alert('Aquí puedes cambiar tus preferencias.');
-  };
-
   return (
     <>
       <BarNav />
-<div style={{ padding: '20px', color: 'black', fontSize: '18px' }}>
-  <h2 style={{ fontSize: '28px' }}>Mis Datos</h2>
-  <p>Nombre: Lorem ipsum</p>
-  <p>Email: ejemplo@correo.com</p>
-  <p>Contraseña: *********</p>
-    <ActividadesRecomendadas onCambiarPreferencias={manejarCambioPreferencias} />
+      <div className="cuenta-contenedor">
+        <div className="cuenta-panel-izquierdo">
+          <img
+            src={usuarioImg}
+            alt="Foto de perfil"
+            className="cuenta-foto-perfil"
+          />
+          <p className="cuenta-nombre">{usuario?.nombre || 'Nombre de usuario'}</p>
+          <p className="cuenta-email">{usuario?.email || 'ejemplo@correo.com'}</p>
+        </div>
+
+        <div className="cuenta-panel-derecho">
+          <ActividadesRecomendadas />
+        </div>
       </div>
     </>
   );
