@@ -79,11 +79,16 @@ function Ubicacion3({ onlat, onlon }) {
 
 const selectStyle = {
   display: sugerencia.length > 0 ? 'block' : 'none',
-  border: '1px solid #ccc',
-  borderRadius: '4px',
-  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-  zIndex: 10,
-  // Position will be set dynamically in useEffect
+  width: '200px',
+  padding: '8px',
+  border: '1px solid #2563eb', // Tailwind blue-600
+  borderRadius: '0.375rem', // Tailwind rounded
+  backgroundColor: '#fff',
+  color: '#1e293b', // Tailwind slate-800
+  boxShadow: '0 2px 8px rgba(37, 99, 235, 0.08)', // subtle blue shadow
+  zIndex: 20,
+  fontSize: '1rem',
+  outline: 'none',
 };
 
   return (
