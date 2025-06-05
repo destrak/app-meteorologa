@@ -4,9 +4,11 @@ import password_icon from '../assets/lock.svg';
 import open_eye from '../assets/eye.svg';
 import closed_eye from '../assets/eye-closed.svg';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 
 function LoginSignup({ isRegister = false }) {
     let navigate = useNavigate();
+    const { login, register, loading } = useUser();
 
     useEffect(() => {
         document.body.classList.add("login_bg");
@@ -18,7 +20,8 @@ function LoginSignup({ isRegister = false }) {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        nombre: ''
     });
 
     const togglePasswordVisibility = () => {
@@ -34,10 +37,10 @@ function LoginSignup({ isRegister = false }) {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (isRegister) {
             // Validación básica para registro
-            if (!formData.email || !formData.password || !formData.confirmPassword) {
+            if (!formData.email || !formData.password || !formData.confirmPassword || !formData.nombre) {
                 alert('Por favor, complete todos los campos');
                 return;
             }
@@ -45,29 +48,60 @@ function LoginSignup({ isRegister = false }) {
                 alert('Las contraseñas no coinciden');
                 return;
             }
-            // Aquí puedes agregar la lógica de registro con tu backend
-            console.log('Registro:', formData);
-            navigate("/login");
+            
+            const result = await register(formData.email, formData.password, formData.nombre);
+            
+            if (result.success) {
+                // El registro hace auto-login, navegamos a la página principal
+                navigate("/");
+            } else {
+                alert(result.error);
+            }
         } else {
             // Lógica de login
-            console.log('Login:', formData);
-            navigate("/preguntas");
+            if (!formData.email || !formData.password) {
+                alert('Por favor, ingrese email y contraseña');
+                return;
+            }
+            
+            const result = await login(formData.email, formData.password);
+            
+            if (result.success) {
+                navigate("/");
+            } else {
+                alert(result.error);
+            }
         }
     };
 
     const handleGoogleAuth = () => {
-        // Aquí puedes agregar la lógica de autenticación con Google
-        console.log('Autenticación con Google');
+        alert('La autenticación con Google estará disponible próximamente');
     };
 
     return (
         <div className="login_container">
             <div className="login_header">
                 <div className="login_text">
-                    {isRegister ? 'Registrarse' : 'Inicie Sesión'}
+                    {isRegister ? 'Create an account' : 'Inicie Sesión'}
                 </div>
             </div>
             <div className="login_inputs">
+                {isRegister && (
+                    <>
+                        <h3 className="login_email_text">Nombre</h3>
+                        <div className="login_input">
+                            <img src={email_icon} alt="Nombre" />
+                            <input
+                                type="text"
+                                name="nombre"
+                                value={formData.nombre}
+                                onChange={handleInputChange}
+                                placeholder="Tu nombre"
+                            />
+                        </div>
+                    </>
+                )}
+                
                 <h3 className="login_email_text">Correo</h3>
                 <div className="login_input">
                     <img src={email_icon} alt="Email" />
@@ -76,7 +110,7 @@ function LoginSignup({ isRegister = false }) {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        placeholder={isRegister ? "" : ""}
+                        placeholder={isRegister ? "tu@email.com" : ""}
                     />
                 </div>
                 <h3 className="login_pswrd_text">Contraseña</h3>
@@ -87,7 +121,7 @@ function LoginSignup({ isRegister = false }) {
                         name="password"
                         value={formData.password}
                         onChange={handleInputChange}
-                        placeholder={isRegister ? "Ingrese su contraseña" : ""}
+                        placeholder={isRegister ? "Enter your password" : ""}
                     />
                     <button className="login-pswrd-button" onClick={togglePasswordVisibility}>
                         <img src={showPassword ? open_eye : closed_eye} alt="Toggle Password Visibility" />
@@ -103,7 +137,7 @@ function LoginSignup({ isRegister = false }) {
                                 name="confirmPassword"
                                 value={formData.confirmPassword}
                                 onChange={handleInputChange}
-                                placeholder="Ingrese su contraseña nuevamente"
+                                placeholder="Enter your password"
                             />
                             <button className="login-pswrd-button" onClick={toggleConfirmPasswordVisibility}>
                                 <img src={showConfirmPassword ? open_eye : closed_eye} alt="Toggle Password Visibility" />
@@ -113,8 +147,12 @@ function LoginSignup({ isRegister = false }) {
                 )}
             </div>
             <div className="submit-container">
-                <button className="login_submit_button" onClick={handleSubmit}>
-                    {isRegister ? 'Registrarse' : 'Iniciar Sesión'}
+                <button 
+                    className="login_submit_button" 
+                    onClick={handleSubmit}
+                    disabled={loading}
+                >
+                    {loading ? 'Cargando...' : (isRegister ? 'Create account' : 'Login')}
                 </button>
             </div>
 
@@ -126,12 +164,12 @@ function LoginSignup({ isRegister = false }) {
                     <path d="M4.31 11.86c-.21-.63-.33-1.3-.33-2.02s.11-1.38.33-2.02V7.7L1.17 5.38l-.1.05A9.97 9.97 0 000 9.84c0 1.61.39 3.13 1.07 4.49l3.24-2.47z" fill="#FBBC04" />
                     <path d="M10 3.88c1.88 0 3.13.8 3.85 1.48l2.84-2.76C14.96.99 12.7 0 10 0 6.13 0 2.74 2.18 1.07 5.57l3.24 2.47C5.1 5.61 7.35 3.88 10 3.88z" fill="#EA4335" />
                 </svg>
-                Continuar con Google
+                Continue with Google
             </button>
 
             <p className="login-text">
                 {isRegister ? (
-                    <>Ya tienes una cuenta? <a href="/login">Iniciar Sesión</a></>
+                    <>Already Have An Account? <a href="/login">Log In</a></>
                 ) : (
                     <>¿No tienes una cuenta? <a href="/register">Registrate</a></>
                 )}

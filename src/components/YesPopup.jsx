@@ -1,21 +1,31 @@
 import xImage from '../assets/x.svg';
 import ZonaHoraria from './ZonaHoraria.jsx';
 import CajaHoraria from './CajaHoraria.jsx';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Ubicacion3 from './Ubicacion3.jsx';
+import { useUser } from '../context/UserContext';
 
 function YesPopup(props) {
-    const Santiago = { name: "Santiago", lat: -33.45, lon: -70.64 };
-    const [sel_lat, setlat] = useState(Santiago.lat);
-    const [sel_lon, setlon] = useState(Santiago.lon);
+    const { user, userLocation } = useUser();
+    const [sel_lat, setlat] = useState(userLocation.lat);
+    const [sel_lon, setlon] = useState(userLocation.lon);
     const [showUbicacionPopup, setShowUbicacionPopup] = useState(false);
+    
+    // Actualizar las coordenadas cuando cambie la ubicación del usuario
+    useEffect(() => {
+        setlat(userLocation.lat);
+        setlon(userLocation.lon);
+    }, [userLocation]);
+
+    // Usar el nombre del usuario del contexto si está disponible
+    const userName = user?.user_metadata?.username || user?.email?.split('@')[0] || props.name;
 
 return (
     <div className="yespopup-card">
         <div className="yespopup-main-row">
             <div className="yespopup-header">
                 <span className="header-text">
-                    Bienvenido, {props.name}!
+                    Bienvenido, {userName}!
                 </span>
                 <ZonaHoraria />
                 <button

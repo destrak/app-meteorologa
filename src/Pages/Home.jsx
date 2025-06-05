@@ -6,7 +6,6 @@ import YesPopup from '../components/YesPopup';
 
 function Home() {
   const [ciudad, setCiudad] = useState(null);
-  const usuario = "Lorem ipsum";
 
   return (
     <>
@@ -14,10 +13,10 @@ function Home() {
       <div className="layout-general">
         <div className="ubicacion-popup-container">
             <div className="ubicacion-query">
-              <UbicationQuery name={usuario} onCiudadSeleccionada={setCiudad} />
+              <UbicationQuery onCiudadSeleccionada={setCiudad} />
             </div>
             <div>
-              <YesPopup name={usuario} onClose={() => {}} />
+              <YesPopup onClose={() => {}} />
             </div>
         </div>
           <div className="contenedor-preferencias-y-tabla">

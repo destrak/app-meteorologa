@@ -6,6 +6,7 @@ import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Preguntas from "./Pages/Preguntas";
+import { UserProvider } from './context/UserContext';
 
 function App() {
  const usuario = {
@@ -14,17 +15,18 @@ function App() {
 };
 
   return (
+    <UserProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/preguntas" element={<Preguntas />} />
+          <Route path="/cuentas" element={<Cuentas usuario={usuario} />} />
 
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/preguntas" element={<Preguntas />} />
-        <Route path="/cuentas" element={<Cuentas usuario={usuario} />} />
-
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </UserProvider>
   );
 }
 export default App;

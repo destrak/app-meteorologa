@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import CajaDia from "./CajaDia";
 import CajaHora from "./CajaHora";
-import getDailyForecasts from "./getDailyForecast";
 
 function CajaHoraria({ lat, lon }) {
-  const [dataF, setDataForecast] = useState(null);
+  const [cityName, setCityName] = useState('');
   const [error, setError] = useState(null);
   const [horas, setHoras] = useState([]);
   const [dias, setDias] = useState([]);
   const [loading, setLoading] = useState(true);
-  const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY
   
   useEffect(() => {
     const fetchData = async () => {
@@ -22,12 +20,44 @@ function CajaHoraria({ lat, lon }) {
       setError(null);
 
       try {
-        const apiUrl= `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric&cnt=80`
-        const responseF = await fetch(apiUrl);
-        const jsonF = await responseF.json();
-        setDataForecast(jsonF);
+        // Llamar al endpoint del backend para datos horarios
+        const responseHourly = await fetch('http://localhost:3000/weather/hourly', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ lat, lon })
+        });
+        
+        if (!responseHourly.ok) {
+          throw new Error('Error al obtener datos horarios');
+        }
+        
+        const hourlyResult = await responseHourly.json();
+        
+        // Llamar al endpoint del backend para datos diarios
+        const responseDaily = await fetch('http://localhost:3000/weather/daily', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ lat, lon })
+        });
+        
+        if (!responseDaily.ok) {
+          throw new Error('Error al obtener datos diarios');
+        }
+        
+        const dailyData = await responseDaily.json();
+        
+        // Establecer los datos
+        setHoras(hourlyResult.hourly || []);
+        setDias(dailyData);
+        setCityName(hourlyResult.city?.name || 'Ubicación actual');
+        
       } catch (err) {
         setError(err);
+        console.error('Error fetching weather data:', err);
       } finally {    
         setLoading(false);
       }
@@ -39,16 +69,6 @@ function CajaHoraria({ lat, lon }) {
     return <div>Error fetching data: {error.message}</div>;
   }
 
-  useEffect(() => {
-    if (dataF) {
-      const daily = getDailyForecasts(dataF.list);
-      const forecast = daily.slice(1)
-      setDias(forecast);
-      setHoras(dataF.list.slice (0, 7));
-    }
-  }, [dataF]);
-  
-
   return (
     <div className="p-6 bg-blue-100 min-h-screen space-y-8">
       <h1 className="text-2xl font-bold mb-4">Pronóstico</h1>
@@ -57,7 +77,7 @@ function CajaHoraria({ lat, lon }) {
         <p>Cargando datos...</p>
       ) : (
         <>
-          <p className="text-lg">Mostrando resultados para: <strong>{dataF.city.name}</strong></p>
+          <p className="text-lg">Mostrando resultados para: <strong>{cityName}</strong></p>
           <div className="caja-horaria-y-dia">  
             <div className="tiempo_hora_contenedor">
               {horas.map(hora => (
