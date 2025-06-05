@@ -13,6 +13,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover; 
   background-position: center;
+  
 }
 
 nav {   
@@ -590,6 +591,7 @@ nav .header-text {
   flex-direction: column;
   flex-grow: 1;
   height: 100%;
+  overflow: hidden;
 }
 
 /* 🧠 Título */
@@ -601,15 +603,17 @@ nav .header-text {
 }
 
 /* 🧾 Lista scrollable */
+
 .actividades-lista {
   flex-grow: 1;
   overflow-y: auto;
+  overflow-x: hidden; 
   display: flex;
   flex-direction: column;
   gap: 12px;
   padding-right: 5px;
-  margin-bottom: 10px;
 }
+
 
 /* 🧱 Tarjeta individual */
 .actividad-item {
@@ -721,7 +725,7 @@ nav .header-text {
   padding: 30px;
   color: white;
   width: 100%;
-  max-width: 800px;
+  max-width: 820px;
   height: 450px; /* ✅ necesario para centrar respecto a esto */
   display: flex;
   flex-direction: column;
