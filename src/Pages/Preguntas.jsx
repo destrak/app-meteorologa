@@ -1,9 +1,12 @@
 import React from 'react';
 import Quiz from '../components/Quiz.jsx';
-
+import BarNav from '../components/BarNav.jsx';
 function Preguntas() {
     return(
-        <Quiz/>
+        <>
+            <BarNav/>
+            <Quiz/>
+        </>
     );
 }
 export default Preguntas;

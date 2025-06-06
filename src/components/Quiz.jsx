@@ -1,74 +1,51 @@
-import preguntas from './preguntas.js';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const actividades = [
+  { id: 'correr', label: 'Correr' },
+  { id: 'leer', label: 'Leer' },
+  { id: 'peliculas', label: 'Ver películas' },
+  { id: 'jugar', label: 'Jugar videojuegos' },
+  { id: 'cocinar', label: 'Cocinar' },
+  { id: 'viajar', label: 'Viajar' },
+  { id: 'musica', label: 'Escuchar música' },
+  { id: 'pintar', label: 'Pintar o dibujar' },
+  { id: 'fotografia', label: 'Fotografía' },
+  { id: 'jardineria', label: 'Jardinería' }
+];
+
 function Quiz() {
-  const [preguntaActual, setPreguntaActual] = useState(0);
-  const [respuestas, setRespuestas] = useState([]); // Guarda los tipos seleccionados
-  const [finalizado, setFinalizado] = useState(false);
+  const [seleccionadas, setSeleccionadas] = useState([]);
   const navigate = useNavigate();
 
-  function handleAnswer(tipoSeleccionado) {
-    const nuevasRespuestas = [...respuestas, tipoSeleccionado];
-    setRespuestas(nuevasRespuestas);
+  const toggleActividad = (id) => {
+    setSeleccionadas(prev =>
+      prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]
+    );
+  };
 
-    if (preguntaActual + 1 < preguntas.length) {
-      setPreguntaActual(preguntaActual + 1);
-    } else {
-      setFinalizado(true);
-    }
-  }
-
-  // Calcula el tipo más seleccionado
-  function obtenerTipoMasSeleccionado() {
-    const conteo = {};
-    respuestas.forEach(tipo => {
-      conteo[tipo] = (conteo[tipo] || 0) + 1;
-    });
-    // Busca el tipo con mayor cantidad
-    let maxTipo = null;
-    let maxCantidad = 0;
-    for (const tipo in conteo) {
-      if (conteo[tipo] > maxCantidad) {
-        maxCantidad = conteo[tipo];
-        maxTipo = tipo;
-      }
-    }
-    return maxTipo;
-  }
-
+ const handleFinalizar = () => {
+  localStorage.setItem('actividadesPreferidas', JSON.stringify(seleccionadas));
+  navigate('/cuentas');
+};
   return (
-    <main className="quiz app-vertical">
-      {!finalizado ? ( /* Loop principal*/
-        <>
-          <h1>Pregunta {preguntaActual + 1} de {preguntas.length}</h1>
-          <div className="titulo-pregunta">
-            <div className="pregunta-titulo">{preguntas[preguntaActual].titulo}</div>
-            <div className="titulo-pregunta-texto">
-              {preguntas[preguntaActual].opciones.map((respuesta, idx) => (
-                <button
-                  key={idx}
-                  className="boton-respuesta"
-                  onClick={() => handleAnswer(respuesta.isSelected)}
-                >
-                  {respuesta.textoRespuesta}
-                </button>
-              ))}
-            </div>
-          </div>
-        </>
-      ) : (
-        <div>
-          <h2>¡Cuestionario finalizado!</h2>
-          <p>
-            El tipo de respuesta más seleccionado fue:{" "}
-            <strong>{obtenerTipoMasSeleccionado()}</strong>
-          </p>
-          <button className="quiz-home-button" onClick={() => navigate('/')}>
-            Finalizar
-          </button>
-        </div>
-      )}
+    <main className="quiz-container">
+      <h2 className="quiz-title">Actividades preferidas</h2>
+      <div className="quiz-options">
+       {actividades.map((actividad) => (
+  <label key={actividad.id} className="actividad-checkbox">
+    <span className="checkbox-label">{actividad.label}</span>
+    <input
+      type="checkbox"
+      checked={seleccionadas.includes(actividad.id)}
+      onChange={() => toggleActividad(actividad.id)}
+    />
+  </label>
+))}
+      </div>
+      <button className="boton-finalizado" onClick={handleFinalizar}>
+        Finalizado
+      </button>
     </main>
   );
 }
