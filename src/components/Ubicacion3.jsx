@@ -1,27 +1,12 @@
 import React, { useState , useRef, useEffect } from "react";
+import { useUser } from "../context/UserContext";
 
 function Ubicacion3({ onlat, onlon }) {
   const [inputCiudad, setInputCiudad] = useState("");
   const [sugerencia, setSugerencia] = useState([]);
   const [CiudadSeleccionada, setCiudadSeleccionada] = useState(null);
+  const { updateUserLocation } = useUser();
   const inputRef = useRef(null);
-
-  const Ciudades_Cords = [
-    { name: "Concepción", lat: -36.82, lon: -73.04 },
-    { name: "Santiago", lat: -33.45, lon: -70.64 },
-    { name: "Concon", lat: -32.93, lon: -71.52 },
-    { name: "Valparaíso", lat: -33.04, lon: -71.61 },
-    { name: "Rancagua", lat: -34.17, lon: -70.74 },
-    { name: "Chillán", lat: -36.60, lon: -72.10 },
-    { name: "Copiapó", lat: -27.37, lon: -70.33 },
-    { name: "Coquimbo", lat: -29.95, lon: -71.34 },
-    { name: "Coronel", lat: -37.02, lon: -73.15 },
-    { name: "La Serena", lat: -29.90, lon: -71.25 },
-    { name: "Antofagasta", lat: -23.65, lon: -70.39 },
-    { name: "Puerto Montt", lat: -41.47, lon: -72.93 },
-    { name: "Temuco", lat: -38.73, lon: -72.59 },
-    { name: "Iquique", lat: -20.21, lon: -70.15 },
-  ];
 
   const manejarCambio = async (e) => {
     const value = e.target.value;
@@ -44,17 +29,14 @@ function Ubicacion3({ onlat, onlon }) {
         if (response.ok) {
             const data = await response.json();
             // Map backend response to expected format if needed
-            console.log("Fetched cities:", data);
             setSugerencia(data.map(ciudad => ({
                 name: `${ciudad.nombre}${ciudad.country ? ', ' + ciudad.country : ''}`,
                 // Optionally add lat/lon if your backend returns them
             })));
         } else {
-            console.log("Fetch failed with status:", response.status);
             setSugerencia([]);
         }
     } catch (error) {
-        console.log("Fetch error:", error);
         setSugerencia([]);
     }
     setCiudadSeleccionada(null);
@@ -74,7 +56,6 @@ function Ubicacion3({ onlat, onlon }) {
         });
         if (response.ok) {
             const data = await response.json();
-            console.log("Coordinates:", data);
             if (data && data.length > 0) {
                 // Use the first result
                 setCiudadSeleccionada({
@@ -87,11 +68,9 @@ function Ubicacion3({ onlat, onlon }) {
                 setCiudadSeleccionada(null);
             }
         } else {
-            console.log("Failed to fetch coordinates:", response.status);
             setCiudadSeleccionada(null);
         }
     } catch (error) {
-        console.log("Error fetching coordinates:", error);
         setCiudadSeleccionada(null);
     }
     setSugerencia([]); 
@@ -102,6 +81,12 @@ function Ubicacion3({ onlat, onlon }) {
     if (CiudadSeleccionada) {
       onlat(CiudadSeleccionada.lat);
       onlon(CiudadSeleccionada.lon);
+      updateUserLocation({
+        lat: CiudadSeleccionada.lat,
+        lon: CiudadSeleccionada.lon,
+        city: CiudadSeleccionada.name,
+        country: CiudadSeleccionada.country
+      });
     }
   };
   

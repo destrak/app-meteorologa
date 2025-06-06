@@ -42,10 +42,24 @@ export const UserProvider = ({ children }) => {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
           async (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            let cityName = 'Ubicación actual';
+            try {
+              const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+              );
+              const data = await response.json();
+              cityName =
+                data.address.city ||
+                'Ubicación actual';
+            } catch (error) {
+              console.log("No se pudo obtener el nombre de la ciudad:", error);
+            }
             const newLocation = {
-              lat: position.coords.latitude,
-              lon: position.coords.longitude,
-              city: 'Ubicación actual'
+              lat,
+              lon,
+              city: cityName
             };
             setUserLocation(newLocation);
             localStorage.setItem('userLocation', JSON.stringify(newLocation));
@@ -132,6 +146,12 @@ export const UserProvider = ({ children }) => {
     setUserLocation(SANTIAGO_COORDS);
   };
 
+  const updateUserLocation = (location) => {
+    console.log(location)
+    setUserLocation(location);
+    localStorage.setItem('userLocation', JSON.stringify(location));
+  };
+
   const value = {
     user,
     userLocation,
@@ -139,7 +159,8 @@ export const UserProvider = ({ children }) => {
     register,
     login,
     logout,
-    requestUserLocation
+    requestUserLocation,
+    updateUserLocation
   };
 
   return (
