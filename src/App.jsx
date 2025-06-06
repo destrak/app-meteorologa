@@ -7,11 +7,13 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Preguntas from "./Pages/Preguntas";
 import { UserProvider } from './context/UserContext';
+import NotificacionesClima from './components/NotificacionesClima';
 
 function App() {
   return (
     <UserProvider>
       <Router>
+        <NotificacionesClima />
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
