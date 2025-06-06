@@ -21,11 +21,15 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userLocation, setUserLocation] = useState(SANTIAGO_COORDS);
   const [loading, setLoading] = useState(false);
+  const [temperatura, setTemp] = useState(null);
+  const [clima, setClimate] = useState('');
 
   // Cargar usuario de localStorage al iniciar
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     const savedLocation = localStorage.getItem('userLocation');
+    const savedTemp = localStorage.getItem('temperatura');
+    const savedClima = localStorage.getItem('clima');
     
     if (savedUser) {
       setUser(JSON.parse(savedUser));
@@ -34,7 +38,23 @@ export const UserProvider = ({ children }) => {
     if (savedLocation) {
       setUserLocation(JSON.parse(savedLocation));
     }
+
+    if (savedTemp) {
+      setTemp(JSON.parse(savedTemp));
+    }
+
+    if (savedClima) {
+      setClimate(JSON.parse(savedClima));
+    }
   }, []);
+
+  useEffect(() => {
+    if (temperatura !== null) localStorage.setItem('temperatura', JSON.stringify(temperatura));
+  }, [temperatura]);
+
+  useEffect(() => {
+    if (clima !== '') localStorage.setItem('clima', JSON.stringify(clima));
+  }, [clima]);
 
   // Función para solicitar ubicación
   const requestUserLocation = () => {
@@ -160,7 +180,11 @@ export const UserProvider = ({ children }) => {
     login,
     logout,
     requestUserLocation,
-    updateUserLocation
+    updateUserLocation,
+    temperatura,
+    setTemp,
+    clima,
+    setClimate
   };
 
   return (

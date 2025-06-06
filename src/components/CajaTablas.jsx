@@ -10,7 +10,7 @@ const CajaTablas = () => {
   const [loading, setLoading] = useState(false);
   const [clima, setClima] = useState('');
   const [temperatura, setTemperatura] = useState(null);
-  const { userLocation } = useUser();
+  const { userLocation, setTemp, setClimate } = useUser();
 
   // Obtener el clima actual del usuario
   useEffect(() => {
@@ -35,7 +35,9 @@ const CajaTablas = () => {
             // Obtener el clima y temperatura actuales del primer elemento
             const currentWeather = data.hourly[0];
             setTemperatura(Math.round(currentWeather.main.temp));
+            setTemp(Math.round(currentWeather.main.temp));
             setClima(currentWeather.weather[0].main); // "Clear", "Clouds", "Rain", etc.
+            setClimate(currentWeather.weather[0].main);
           }
         }
       } catch (error) {

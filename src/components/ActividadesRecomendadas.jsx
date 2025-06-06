@@ -1,41 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 
 function ActividadesRecomendadas() {
   const navigate = useNavigate();
+  const { user, temperatura, clima } = useUser();
+  const [actividades, setActividades] = useState([]);
 
-  const actividades = [
-    {
-      titulo: 'Senderismo en Naturaleza',
-      duracion: '1 hora',
-      dificultad: 'Media',
-      descripcion: 'Explora senderos rodeados de árboles y aire puro. Ideal para mejorar tu estado físico y reducir el estrés.'
-    },
-    {
-      titulo: 'Meditación Guiada',
-      duracion: '20 minutos',
-      dificultad: 'Baja',
-      descripcion: 'Una sesión de meditación paso a paso para calmar la mente, mejorar la concentración y conectar contigo mismo.'
-    },
-    {
-      titulo: 'Entrenamiento HIIT',
-      duracion: '30 minutos',
-      dificultad: 'Alta',
-      descripcion: 'Ejercicio de intervalos de alta intensidad para quemar grasa y aumentar tu resistencia cardiovascular en poco tiempo.'
-    },
-    {
-      titulo: 'Clase de Baile Latino',
-      duracion: '45 minutos',
-      dificultad: 'Media',
-      descripcion: 'Aprende pasos básicos de salsa, bachata o merengue mientras te diviertes y quemas calorías.'
-    },
-    {
-      titulo: 'Rutina de Estiramiento',
-      duracion: '15 minutos',
-      dificultad: 'Baja',
-      descripcion: 'Perfecto para después de un día largo. Alivia tensiones musculares y mejora tu flexibilidad con movimientos suaves.'
+  useEffect(() => {
+    if (user && user.id) {
+      fetch(`http://localhost:3000/user-preferences/filter/${user.id}?temperatura=${temperatura}&clima=${clima}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log('Fetched data:', data);
+          if (data.preferences) {
+            setActividades(
+              data.preferences
+                .filter(pref => pref.actividades) // Only include if actividades is not null
+                .map(pref => ({
+                  titulo: pref.actividades.nombre || 'Sin título',
+                  duracion: pref.actividades.duracion || 'X horas',
+                  tipo: pref.actividades.tipo || 'Desconocida',
+                  descripcion: pref.actividades.descripcion || 'Sin descripción'
+                }))
+            );
+          }
+        })
+        .catch(err => {
+          console.error('Error fetching user activities:', err);
+        });
     }
-  ];
+  }, [user, temperatura, clima]);
 
   const irAPreguntas = () => {
     navigate('/preguntas');
@@ -58,14 +53,14 @@ function ActividadesRecomendadas() {
   );
 }
 
-function ActividadItem({ titulo, duracion, dificultad, descripcion }) {
+function ActividadItem({ titulo, duracion, tipo, descripcion }) {
   const [expandido, setExpandido] = useState(false);
 
   return (
     <div className="actividad-item" onClick={() => setExpandido(!expandido)}>
       <div className="actividad-header">{titulo}</div>
       <div className="actividad-meta">
-        {duracion} — Dificultad: {dificultad}
+        {duracion} — Tipo: {tipo}
       </div>
       {expandido && (
         <div className="actividad-descripcion">{descripcion}</div>
