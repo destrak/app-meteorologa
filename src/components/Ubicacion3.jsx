@@ -23,27 +23,79 @@ function Ubicacion3({ onlat, onlon }) {
     { name: "Iquique", lat: -20.21, lon: -70.15 },
   ];
 
-  const manejarCambio = (e) => {
+  const manejarCambio = async (e) => {
     const value = e.target.value;
     setInputCiudad(value);
 
-    const filtro = Ciudades_Cords.filter(ciudad =>
-        ciudad.name.toLowerCase().startsWith(value.toLowerCase())
-    );
-    setSugerencia(filtro);
+
+    if (value.trim() === "") {
+        setSugerencia([]);
+        setCiudadSeleccionada(null);
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:3000/weather/cities?city=${encodeURIComponent(value)}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.ok) {
+            const data = await response.json();
+            // Map backend response to expected format if needed
+            console.log("Fetched cities:", data);
+            setSugerencia(data.map(ciudad => ({
+                name: `${ciudad.nombre}${ciudad.country ? ', ' + ciudad.country : ''}`,
+                // Optionally add lat/lon if your backend returns them
+            })));
+        } else {
+            console.log("Fetch failed with status:", response.status);
+            setSugerencia([]);
+        }
+    } catch (error) {
+        console.log("Fetch error:", error);
+        setSugerencia([]);
+    }
     setCiudadSeleccionada(null);
   };
 
-  const manejarSeleccionCiudad = (e) => {
-    const cityName = e.target.value;
-    setInputCiudad(cityName); 
+  const manejarSeleccionCiudad = async(e) => {
+    const value = e.target.value;
+    setInputCiudad(value); 
+    const [cityName, countryName] = value.split(',').map(s => s.trim());
 
-    const ciudad = Ciudades_Cords.find(c => c.name === cityName);
-    if (ciudad) {
-        setCiudadSeleccionada(ciudad);
-        setSugerencia([]); 
+    try {
+        const response = await fetch(`http://localhost:3000/weather/cords?city=${encodeURIComponent(cityName)}&country=${encodeURIComponent(countryName || '')}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Coordinates:", data);
+            if (data && data.length > 0) {
+                // Use the first result
+                setCiudadSeleccionada({
+                    name: data[0].nombre,
+                    lat: data[0].lat,
+                    lon: data[0].lon,
+                    country: data[0].country
+                });
+            } else {
+                setCiudadSeleccionada(null);
+            }
+        } else {
+            console.log("Failed to fetch coordinates:", response.status);
+            setCiudadSeleccionada(null);
+        }
+    } catch (error) {
+        console.log("Error fetching coordinates:", error);
+        setCiudadSeleccionada(null);
     }
-};
+    setSugerencia([]); 
+  };
 
   const manejarEnvio = (e) => {
     e.preventDefault();
