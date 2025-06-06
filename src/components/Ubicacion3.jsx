@@ -28,10 +28,8 @@ function Ubicacion3({ onlat, onlon }) {
         });
         if (response.ok) {
             const data = await response.json();
-            // Map backend response to expected format if needed
             setSugerencia(data.map(ciudad => ({
                 name: `${ciudad.nombre}${ciudad.country ? ', ' + ciudad.country : ''}`,
-                // Optionally add lat/lon if your backend returns them
             })));
         } else {
             setSugerencia([]);
@@ -57,7 +55,6 @@ function Ubicacion3({ onlat, onlon }) {
         if (response.ok) {
             const data = await response.json();
             if (data && data.length > 0) {
-                // Use the first result
                 setCiudadSeleccionada({
                     name: data[0].nombre,
                     lat: data[0].lat,
