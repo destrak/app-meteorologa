@@ -983,9 +983,18 @@ nav .header-text {
 
 
 
-.mb-4 input,
+.mb-4 input{
+  background: rgb(26, 35, 126);
+  color: #fff;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
 .mb-4 select {
-  background: #23265d;
+  background: rgb(26, 35, 126);
   color: #fff;
   padding: 10px 14px;
   margin-bottom: 12px;
@@ -1011,6 +1020,7 @@ nav .header-text {
   font-size: 1rem;
   font-weight: 600;
   margin-top: 8px;
+  margin-left: 10px;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   transition: background 0.2s, transform 0.2s;
@@ -1031,7 +1041,7 @@ nav .header-text {
 }
 
 .mb-4 option {
-  color: #23265d;
+  color: #fff;
 }
 
 /* Información adicional del usuario en la página de cuenta */
