@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 
-function ActividadesRecomendadas() {
-  const navigate = useNavigate();
-  const location = useLocation();
+function ActividadesNoRecomendadas() {
   const { user, temperatura, clima } = useUser();
   const [actividades, setActividades] = useState([]);
 
@@ -13,9 +10,9 @@ function ActividadesRecomendadas() {
       fetch(`http://localhost:3000/user-preferences/filter/${user.id}?temperatura=${temperatura}&clima=${clima}`)
         .then(res => res.json())
         .then(data => {
-          if (data.preferences) {
+          if (data.nonPreferredActivities) {
             setActividades(
-              data.preferences
+              data.nonPreferredActivities
                 .filter(pref => pref.actividades)
                 .map(pref => ({
                   titulo: pref.actividades.nombre || 'Sin título',
@@ -27,34 +24,24 @@ function ActividadesRecomendadas() {
           }
         })
         .catch(err => {
-          console.error('Error fetching user activities:', err);
+          console.error('Error fetching non-preferred activities:', err);
         });
     }
   }, [user, temperatura, clima]);
 
-  const irAPreferencias = () => {
-    if (location.pathname === '/') {
-      navigate('/cuenta'); // Desde Home, redirige a cuenta
-    } else if (location.pathname === '/cuentas') {
-      navigate('/preguntas'); // Desde MasActividades, redirige a preguntas
-    } else {
-      navigate('/cuentas'); // Ruta por defecto
-    }
-  };
-
   return (
-    <div className="actividades-container">
-      <h2 className="actividades-titulo">Actividades recomendadas</h2>
+    <div className="actividades-no-recomendadas-container">
+      <h2 className="actividades-titulo">Actividades no recomendadas</h2>
 
       <div className="actividades-lista">
-        {actividades.map((actividad, idx) => (
-          <ActividadItem key={idx} {...actividad} />
-        ))}
+        {actividades.length === 0 ? (
+          <p>No hay actividades no recomendadas en este momento.</p>
+        ) : (
+          actividades.map((actividad, idx) => (
+            <ActividadItem key={idx} {...actividad} />
+          ))
+        )}
       </div>
-
-      <button className="boton-preferencias" onClick={irAPreferencias}>
-        Cambiar preferencias
-      </button>
     </div>
   );
 }
@@ -63,7 +50,7 @@ function ActividadItem({ titulo, duracion, tipo, descripcion }) {
   const [expandido, setExpandido] = useState(false);
 
   return (
-    <div className="actividad-item" onClick={() => setExpandido(!expandido)}>
+    <div className="actividad-item no-recomendada" onClick={() => setExpandido(!expandido)}>
       <div className="actividad-header">{titulo}</div>
       <div className="actividad-meta">
         {duracion} — Tipo: {tipo}
@@ -75,4 +62,4 @@ function ActividadItem({ titulo, duracion, tipo, descripcion }) {
   );
 }
 
-export default ActividadesRecomendadas;
+export default ActividadesNoRecomendadas;

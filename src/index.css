@@ -146,7 +146,34 @@ nav .header-text {
   width: auto;
   height: auto;
 }
+/* resumen del clima por dia */
+.resumen-clima-hoy {
+  background-color: #10154d;
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 10px;
+}
 
+.clima-hoy-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: #1a237e;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.clima-hoy-card img {
+  width: 60px;
+  height: 60px;
+}
+
+.clima-hoy-card .info {
+  text-align: left;
+}
 
 
 /* sección de es esta su ubicacion */
@@ -1079,3 +1106,256 @@ nav .header-text {
   font-weight: 600;
   margin-right: 5px;
 }
+
+/*caja dia vertical */
+.caja-dia-vertical {
+  background-color: #1e2278;
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  color: white;
+  width: 250px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-size: 1.1rem;
+}
+
+.icono-clima-vertical {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 0.5rem;
+}
+
+.dia-fecha {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.dia-lluvia {
+  color: #4fb4ff;
+  font-size: 1rem;
+}
+
+.dia-temp {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+/* caja no recomendados*/
+/* Botón más actividades */
+.boton-mas-actividades {
+  margin: 30px auto 0;
+  display: block;
+  background-color: #2e6bed;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.boton-mas-actividades:hover {
+  background-color: #1a51c3;
+}
+/* home */
+/* Estilo principal del Home */
+.contenedor-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 60px;
+}
+
+/* Asegura que ambas columnas tengan el mismo alto mínimo */
+.seccion-superior {
+  display: flex;
+  align-items: stretch; /* clave para que ambas columnas crezcan igual */
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+
+/* Parte inferior: no recomendadas */
+.seccion-inferior {
+  width: 100%;
+  max-width: 900px;
+  margin-right: 50px;
+}
+
+/* Columna izquierda */
+.columna-izquierda {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 250px;
+  margin-top: 20px;
+}
+.tarjeta-bienvenida-clima {
+  background-color: #1a1d69;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+   margin-top: 20px;
+}
+/* Columna derecha */
+.columna-derecha {
+  flex: 1;
+  min-width: 400px;
+  max-width: 700px;
+  margin-left: 50px;
+  margin-top: 30px;
+}
+
+/* Contenedor con scroll interno y botón fijo */
+.contenedor-tabla-recomendada {
+  background-color: #1a1d69;
+  color: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+
+  /* Nuevo */
+  max-height: 480px; /* 3 tarjetas + botón */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Scroll para las tarjetas */
+.tarjetas-grid {
+  max-height: 340px; /* Mostrar 3 tarjetas */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 5px; /* Espacio para scrollbar */
+}
+
+.tarjetas-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tarjetas-grid::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+/* Botones */
+.boton-secundario, .boton-pronostico {
+  background-color: #2475f2;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 16px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.boton-secundario:hover, .boton-pronostico:hover {
+  background-color: #185ddc;
+}
+
+/* Actividades no recomendadas */
+.seccion-no-recomendadas {
+  width: 100%;
+  max-width: 900px;
+  background-color: #1a1d69;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.seccion-no-recomendadas h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Título general */
+.titulo-seccion {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+
+/* mas actividades */
+.contenedor-actividades-extra {
+  display: flex;
+  padding: 40px 60px;
+  gap: 80px; /* Aumenta el espacio entre columnas */
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+
+/* Posiciona el lado izquierdo más a la izquierda */
+.lado-izquierdo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  gap: 20px;
+  margin-top: 100px;
+  margin-left: 20px; /* Solo un poco de margen, nada negativo */
+  margin-right: 40px; /* Este separa explícitamente del derecho */
+}
+
+
+/* Deja el lado derecho alineado correctamente */
+.lado-derecho {
+  flex: 1;
+  min-width: 500px;
+  margin-top: 100px;
+}
+.boton-secundario {
+  background-color: #2475f2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.boton-secundario:hover {
+  background-color: #185ddc;
+}
+.contenedor-actividades-juntas {
+  margin: 0;
+  padding: 0;
+}
+
+.encabezado-tabla-actividades {
+  background-color: #1a1d69;
+  color: white;
+  padding: 12px 24px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom: 2px solid #121958; /* separador visual fino */
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+}
+

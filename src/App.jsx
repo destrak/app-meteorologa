@@ -8,6 +8,8 @@ import Register from "./Pages/Register";
 import Preguntas from "./Pages/Preguntas";
 import { UserProvider } from './context/UserContext';
 import NotificacionesClima from './components/NotificacionesClima';
+import Pronostico from "./Pages/Pronostico";
+import MasActividades from './Pages/MasActividades';
 
 function App() {
   return (
@@ -20,7 +22,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/preguntas" element={<Preguntas />} />
+          <Route path="/mas-actividades" element={<MasActividades />} />
           <Route path="/cuentas" element={<Cuentas />} />
+          <Route
+  path="/pronostico"
+  element={
+    <Pronostico key="pronostico" />
+  }
+/>
 
         </Routes>
       </Router>
