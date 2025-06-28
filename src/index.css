@@ -851,7 +851,7 @@ nav .header-text {
 .ubicacion3-popup-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(20, 20, 40, 0.55);
+  background: rgba(0, 0, 65, 0.55);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1389,22 +1389,40 @@ nav .header-text {
 
 /*Modal de Nuevass preferencias*/
 .modal-overlay {
+  display: flex;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(20, 20, 40, 0.55);
+  background: rgba(0, 0, 65, 0.55);
   display: flex;
   justify-content: center;
+  padding-top: 48px;
+  padding-bottom: 48px;
   align-items: center;
+  box-sizing: border-box;
   z-index: 2000;
 }
 
-.modal-nueva-preferencia {
-  background: #121958;
+.modal-preferencias-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  min-width: 340px;
+  max-width: 480px;
+  margin: 40px auto;
+  background: #10154d;
   border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  padding: 32px 24px 10px 10px;
+  flex-direction: column;
+}
+
+.modal-nueva-preferencia-fill {
+  background: #10154d;
+  border-radius: 22px;
   padding: 36px 32px 28px 32px;
-  min-width: 320px;
+  min-width: 340px;
   max-width: 95vw;
+  width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1412,12 +1430,16 @@ nav .header-text {
   color: #fff;
 }
 
+
 .modal-nueva-preferencia h3 {
   margin-bottom: 18px;
   text-align: center;
   width: 100%;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
-.modal-nueva-preferencia label {
+.modal-nueva-preferencia-fill label {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1429,8 +1451,8 @@ nav .header-text {
   text-align: left;
 }
 
-.modal-nueva-preferencia input,
-.modal-nueva-preferencia textarea {
+.modal-nueva-preferencia-fill input,
+.modal-nueva-preferencia-fill textarea {
   width: 90%;
   margin: 8px 0;
   padding: 10px 12px;
@@ -1442,12 +1464,12 @@ nav .header-text {
   transition: border-color 0.2s;
 }
 
-.modal-nueva-preferencia input:focus,
-.modal-nueva-preferencia textarea:focus {
+.modal-nueva-preferencia-fill input:focus,
+.modal-nueva-preferencia-fill textarea:focus {
   border-color: #3b3195;
 }
 
-.modal-nueva-preferencia .close-btn {
+.modal-nueva-preferencia-fill .close-btn {
   background: transparent;
   border: none;
   position: absolute;
@@ -1457,4 +1479,164 @@ nav .header-text {
   font-size: 2rem;
   color: #fff;
   line-height: 1;
+}
+
+.modal-nueva-preferencia-flex {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.modal-nueva-preferencia-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.modal-nueva-preferencia-fields {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-nueva-preferencia-fields label {
+  color: #b0b3d6;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  margin-top: 6px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.modal-nueva-preferencia-fields input {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #1a237e;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  border: 1.5px solid #ffffff;
+  transition: border-color 0.2s;
+}
+
+.modal-nueva-preferencia-fields input:focus {
+  border-color: #1570EF;
+}
+
+.modal-nueva-preferencia-fields input[type="number"]::-webkit-outer-spin-button,
+.modal-nueva-preferencia-fields input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.modal-nueva-preferencia-fields input[type="number"] {
+  -moz-appearance: textfield; /*seguían saliendo en  mozilla :(*/
+}
+
+.modal-nueva-preferencia-checkboxes {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+  padding-left: 16px;
+  justify-content: flex-start;
+}
+
+@media (min-width: 600px) {
+  .modal-nueva-preferencia-fields,
+  .modal-nueva-preferencia-checkboxes {
+    max-width: 220px;
+  }
+  .modal-nueva-preferencia-flex {
+    justify-content: center;
+  }
+}
+
+.modal-nueva-preferencia-checkboxes label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #a3a9da;
+  color: #23265d;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  padding: 0.8rem 1.2rem;
+  margin-top: 10%;
+  width: 150px;
+  text-align: center;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  gap: 10px;
+}
+
+.modal-nueva-preferencia-checkboxes label:hover {
+  background: #7a7fb4;
+  color: #fff;
+}
+
+
+.modal-nueva-preferencia-checkboxes input[type="checkbox"] {
+  accent-color: #1570EF;
+  width: 22px;
+  height: 22px;
+  margin-left: 16px;
+  margin-right: 0;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 2px solid #3b3195;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+.modal-nueva-preferencia-descripcion {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 18px;
+  color: #b0b3d6;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.modal-nueva-preferencia-descripcion textarea {
+  width: 95%;
+  min-height: 60px;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #1a237e;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  border: 1.5px solid #ffffff;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+
+.boton-modal-preferencias{
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: center;
+  margin-top: -24px; /* Move button higher */
+  margin-bottom: 0px;
+}
+
+  .boton-modal-preferencias:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
 }

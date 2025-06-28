@@ -41,11 +41,7 @@ function Home() {
               <h3 style={{ color: 'white', textAlign: 'center', marginBottom: '10px' }}>
                 Bienvenido, {userName}!
               </h3>
-              <CajaDiaVertical
-                dia={diaSimulado}
-                onCambiarUbicacion={() => setMostrarUbicacion(true)}
-                onVerPronostico={() => navigate('/pronostico')}
-              />
+              <CajaDiaVertical onVerPronostico={() => navigate('/pronostico')} />
             </div>
           </div>
 
@@ -65,26 +61,7 @@ function Home() {
         </div>
 
               {/* Popup para cambiar ubicación */}
-        {mostrarUbicacion && (
-          <div className="ubicacion3-popup-overlay">
-            <div className="popup-clima-container">
-              <button className="close-btn" onClick={() => setMostrarUbicacion(false)}>
-                <img src={iconoCerrar} alt="Cerrar" />
-              </button>
-              <h2 className="popup-title">Elige tu ciudad</h2>
-              <div className="layout-general">
-                <div className="ubicacion-popup-container">
-                  <div className="ubicacion-query">
-                    <UbicationQuery />
-                  </div>
-                  <div>
-                    <YesPopup onClose={() => {}} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+
       </div>
     </>
   );

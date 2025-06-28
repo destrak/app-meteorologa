@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useUser } from '../context/UserContext';
+import SeleccionaUbicacion from './SeleccionaUbicacion.jsx';
 
-function CajaDiaVertical({ onCambiarUbicacion, onVerPronostico }) {
+function CajaDiaVertical({ onVerPronostico }) {
   const { userLocation, setTemp, setClimate } = useUser();
   const [dia, setDia] = useState(null);
+  const [showUbicacionPopup, setShowUbicacionPopup] = useState(false);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -38,7 +40,7 @@ function CajaDiaVertical({ onCambiarUbicacion, onVerPronostico }) {
     };
 
     fetchWeatherData();
-  }, [userLocation]);
+  }, [userLocation, setTemp, setClimate]);
 
   const fechaFormateada = dia?.date || 'Fecha desconocida';
   const iconoUrl = dia?.icon ? `https://openweathermap.org/img/wn/${dia.icon}@2x.png` : '';
@@ -48,10 +50,15 @@ function CajaDiaVertical({ onCambiarUbicacion, onVerPronostico }) {
 
   return (
     <div className="caja-dia-vertical">
-      {onCambiarUbicacion && (
-        <button className="boton-secundario" onClick={onCambiarUbicacion}>
-          Cambiar ubicación
-        </button>
+      <button
+        className="boton-secundario"
+        onClick={() => setShowUbicacionPopup(true)}
+      >
+        Cambiar ubicación
+      </button>
+      <div className="yespopup-divider" />
+      {showUbicacionPopup && (
+        <SeleccionaUbicacion onClose={() => setShowUbicacionPopup(false)} />
       )}
 
       {iconoUrl && (
