@@ -33,12 +33,13 @@ function NotificacionesClima() {
               const actividad = actividades[randomIdx];
               new Notification('¡Actividad recomendada!', {
                 body: `¿Por qué no pruebas: ${actividad}?`,
-                icon: '/weather-icon.png'
+                icon: '/weather-icon.png' //Para mas adelante
               });
             }
           }
         } catch (err) {
-          // Optionally handle error
+          // Manejo de errores
+          console.error('Error al obtener preferencias del usuario:', err);
         }
       }
     };
@@ -46,7 +47,7 @@ function NotificacionesClima() {
     let intervalId;
     if ('Notification' in window) {
       if (Notification.permission === 'granted') {
-        intervalId = setInterval(mostrarNotificacion, 30000); // 30 seconds
+        intervalId = setInterval(mostrarNotificacion, 30000); // 60 seconds
       } else if (Notification.permission !== 'denied') {
         Notification.requestPermission().then(permission => {
           if (permission === 'granted') {

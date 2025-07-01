@@ -1113,7 +1113,7 @@ nav .header-text {
   padding: 2rem 2.5rem;
   border-radius: 20px;
   color: white;
-  width: 250px;
+  width: 300px;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -1121,6 +1121,8 @@ nav .header-text {
   gap: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   font-size: 1.1rem;
+  height: 480px;
+  justify-content: space-between;
 }
 
 .icono-clima-vertical {
@@ -1176,10 +1178,11 @@ nav .header-text {
 .seccion-superior {
   display: flex;
   align-items: stretch; /* clave para que ambas columnas crezcan igual */
-  gap: 40px;
+  gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
+  min-height: 520px; /* Altura mínima para nivelar las cajas */
 }
 
 
@@ -1196,7 +1199,7 @@ nav .header-text {
   flex-direction: column;
   gap: 16px;
   align-items: center;
-  width: 250px;
+  width: 300px;
   margin-top: 20px;
 }
 .tarjeta-bienvenida-clima {
@@ -1209,9 +1212,9 @@ nav .header-text {
 /* Columna derecha */
 .columna-derecha {
   flex: 1;
-  min-width: 400px;
-  max-width: 700px;
-  margin-left: 50px;
+  min-width: 450px;
+  max-width: 750px;
+  margin-left: 20px;
   margin-top: 30px;
 }
 
@@ -1223,11 +1226,11 @@ nav .header-text {
   border-radius: 12px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto 20px auto;
 
   /* Nuevo */
-  max-height: 480px; /* 3 tarjetas + botón */
+  height: 480px; /* Altura fija para nivelar con la caja izquierda */
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -1275,7 +1278,7 @@ nav .header-text {
 /* Actividades no recomendadas */
 .seccion-no-recomendadas {
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px;
   background-color: #1a1d69;
   padding: 24px;
   border-radius: 12px;
@@ -1385,6 +1388,32 @@ nav .header-text {
 .boton-nueva-preferencia:hover {
   opacity: 0.9;
   transform: scale(1.05);
+}
+
+/* Botones de la caja dia vertical */
+.caja-botones-verticales {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+}
+
+.boton-caja-vertical {
+  background-color: #2475f2;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.2s ease-in-out;
+  width: 100%;
+}
+
+.boton-caja-vertical:hover {
+  background-color: #185ddc;
 }
 
 /*Modal de Nuevass preferencias*/

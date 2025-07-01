@@ -37,10 +37,10 @@ function ActividadesRecomendadas() {
   const irAPreferencias = () => {
     if (location.pathname === '/') {
       navigate('/cuenta');
-    } else if (location.pathname === '/cuentas') {
+    } else if (location.pathname === '/cuenta') {
       navigate('/preguntas');
     } else {
-      navigate('/cuentas');
+      navigate('/cuenta');
     }
   };
 

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import BarNav from './components/BarNav';
-import Cuentas from './Pages/Cuenta'; 
+import Cuenta from './Pages/Cuenta'; 
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
@@ -23,7 +23,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/preguntas" element={<Preguntas />} />
           <Route path="/mas-actividades" element={<MasActividades />} />
-          <Route path="/cuentas" element={<Cuentas />} />
+          <Route path="/cuenta" element={<Cuenta />} />
           <Route
   path="/pronostico"
   element={

@@ -13,6 +13,7 @@ function SeleccionaUbicacion({ onClose }) {
                 <Ubicacion3
                     onlat={() => onClose()}
                     onlon={() => {}}
+                    isTemporaryLocation={true}
                 />
             </div>
         </div>

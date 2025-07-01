@@ -3,7 +3,7 @@ import { useUser } from '../context/UserContext';
 import SeleccionaUbicacion from './SeleccionaUbicacion.jsx';
 
 function CajaDiaVertical({ onVerPronostico }) {
-  const { userLocation, setTemp, setClimate } = useUser();
+  const { userLocation, setTemp, setClimate, favoriteCity, updateUserLocation } = useUser();
   const [dia, setDia] = useState(null);
   const [showUbicacionPopup, setShowUbicacionPopup] = useState(false);
 
@@ -48,18 +48,25 @@ function CajaDiaVertical({ onVerPronostico }) {
   const tempMax = dia?.maxTemp !== undefined ? Math.floor(dia.maxTemp) : '?';
   const tempMin = dia?.minTemp !== undefined ? Math.floor(dia.minTemp) : '?';
 
+  // Función para usar ubicación favorita
+  const usarUbicacionFavorita = () => {
+    if (favoriteCity) {
+      const favoriteLocation = {
+        lat: favoriteCity.lat,
+        lon: favoriteCity.lon,
+        city: favoriteCity.nombre,
+        country: favoriteCity.country
+      };
+      updateUserLocation(favoriteLocation);
+    }
+  };
+
   return (
     <div className="caja-dia-vertical">
-      <button
-        className="boton-secundario"
-        onClick={() => setShowUbicacionPopup(true)}
-      >
-        Cambiar ubicación
-      </button>
-      <div className="yespopup-divider" />
-      {showUbicacionPopup && (
-        <SeleccionaUbicacion onClose={() => setShowUbicacionPopup(false)} />
-      )}
+      <div style={{ color: 'white', textAlign: 'center', margin: '10px 0', fontSize: '14px', fontWeight: 'bold' }}>
+        {userLocation.city}
+        {userLocation.country && `, ${userLocation.country}`}
+      </div>
 
       {iconoUrl && (
         <img src={iconoUrl} alt="Icono del clima" className="icono-clima-vertical" />
@@ -69,10 +76,36 @@ function CajaDiaVertical({ onVerPronostico }) {
       <span className="dia-lluvia">{probLluvia}</span>
       <span className="dia-temp">{tempMax}° / {tempMin}°</span>
 
-      {onVerPronostico && (
-        <button className="boton-pronostico" onClick={onVerPronostico}>
-          Ver más pronósticos
+      <div className="caja-botones-verticales">
+        <button
+          className="boton-caja-vertical"
+          onClick={() => setShowUbicacionPopup(true)}
+        >
+          Cambiar ubicación
         </button>
+        
+        {favoriteCity && (
+          <button
+            className="boton-caja-vertical"
+            onClick={usarUbicacionFavorita}
+          >
+            Usar ubicación favorita
+          </button>
+        )}
+
+        {onVerPronostico && (
+          <button 
+            className="boton-caja-vertical" 
+            onClick={onVerPronostico}
+          >
+            Ver más pronósticos
+          </button>
+        )}
+      </div>
+      
+      <div className="yespopup-divider" />
+      {showUbicacionPopup && (
+        <SeleccionaUbicacion onClose={() => setShowUbicacionPopup(false)} />
       )}
     </div>
   );

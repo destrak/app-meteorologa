@@ -20,6 +20,7 @@ export const useUser = () => {
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userLocation, setUserLocation] = useState(SANTIAGO_COORDS);
+  const [favoriteCity, setFavoriteCity] = useState(null);
   const [loading, setLoading] = useState(false);
   const [temperatura, setTemp] = useState(null);
   const [clima, setClimate] = useState('');
@@ -28,6 +29,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     const savedLocation = localStorage.getItem('userLocation');
+    const savedFavoriteCity = localStorage.getItem('favoriteCity');
     const savedTemp = localStorage.getItem('temperatura');
     const savedClima = localStorage.getItem('clima');
     
@@ -37,6 +39,10 @@ export const UserProvider = ({ children }) => {
     
     if (savedLocation) {
       setUserLocation(JSON.parse(savedLocation));
+    }
+
+    if (savedFavoriteCity) {
+      setFavoriteCity(JSON.parse(savedFavoriteCity));
     }
 
     if (savedTemp) {
@@ -146,11 +152,26 @@ export const UserProvider = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(data.user));
       localStorage.setItem('session', JSON.stringify(data.session));
 
-      // Solicitar ubicación después del login exitoso
-      await requestUserLocation();
+      // Manejar ciudad favorita
+      if (data.favoriteCity) {
+        // Si tiene ciudad favorita, usarla como ubicación inicial
+        const favoriteLocation = {
+          lat: data.favoriteCity.lat,
+          lon: data.favoriteCity.lon,
+          city: data.favoriteCity.nombre,
+          country: data.favoriteCity.country
+        };
+        setFavoriteCity(data.favoriteCity);
+        setUserLocation(favoriteLocation);
+        localStorage.setItem('favoriteCity', JSON.stringify(data.favoriteCity));
+        localStorage.setItem('userLocation', JSON.stringify(favoriteLocation));
+      } else {
+        // Si no tiene ciudad favorita, solicitar ubicación
+        await requestUserLocation();
+      }
 
       setLoading(false);
-      return { success: true };
+      return { success: true, hasFavoriteCity: !!data.favoriteCity };
     } catch (error) {
       setLoading(false);
       return { success: false, error: error.message };
@@ -160,27 +181,63 @@ export const UserProvider = ({ children }) => {
   // Función de logout
   const logout = () => {
     setUser(null);
+    setFavoriteCity(null);
+    setTemp(null);
+    setClimate('');
     localStorage.removeItem('user');
     localStorage.removeItem('session');
     localStorage.removeItem('userLocation');
+    localStorage.removeItem('favoriteCity');
+    localStorage.removeItem('temperatura');
+    localStorage.removeItem('clima');
     setUserLocation(SANTIAGO_COORDS);
   };
 
   const updateUserLocation = (location) => {
-    console.log(location)
     setUserLocation(location);
     localStorage.setItem('userLocation', JSON.stringify(location));
+  };
+
+  // Función para guardar ciudad favorita
+  const saveFavoriteCity = async (cityData) => {
+    if (!user?.id) {
+      throw new Error('Usuario no autenticado');
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3000/users/favorite-city/${user.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ciudad_id: cityData.id })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error al guardar ciudad favorita');
+      }
+
+      // Actualizar estado local
+      setFavoriteCity(data.favoriteCity);
+      localStorage.setItem('favoriteCity', JSON.stringify(data.favoriteCity));
+
+      return { success: true, favoriteCity: data.favoriteCity };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
   };
 
   const value = {
     user,
     userLocation,
+    favoriteCity,
     loading,
     register,
     login,
     logout,
     requestUserLocation,
     updateUserLocation,
+    saveFavoriteCity,
     temperatura,
     setTemp,
     clima,

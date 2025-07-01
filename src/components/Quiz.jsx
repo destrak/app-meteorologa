@@ -114,7 +114,7 @@ const toggleActividad = (actividad_id) => {
       }
     }
     localStorage.setItem('actividadesPreferidas', JSON.stringify(seleccionadas));
-    navigate('/cuentas');
+    navigate('/cuenta');
   };
 
   return (

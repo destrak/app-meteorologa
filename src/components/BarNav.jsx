@@ -38,7 +38,7 @@ function BarNav() {
                     </button>
                     {showMenu && (
                         <div className="dropdown-menu">
-                            <Link to="/cuentas" className="dropdown-item" onClick={() => setShowMenu(false)}>
+                            <Link to="/cuenta" className="dropdown-item" onClick={() => setShowMenu(false)}>
                                 Cuenta
                             </Link>
                         </div>

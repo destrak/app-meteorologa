@@ -1,21 +1,23 @@
 import React, { useState , useRef, useEffect } from "react";
 import { useUser } from "../context/UserContext";
 
-function Ubicacion3({ onlat, onlon }) {
+function Ubicacion3({ onlat, onlon, isTemporaryLocation = true }) {
   const [inputCiudad, setInputCiudad] = useState("");
   const [sugerencia, setSugerencia] = useState([]);
   const [CiudadSeleccionada, setCiudadSeleccionada] = useState(null);
+  const [showSugerencias, setShowSugerencias] = useState(false);
   const { updateUserLocation } = useUser();
   const inputRef = useRef(null);
+  const dropdownRef = useRef(null);
 
   const manejarCambio = async (e) => {
     const value = e.target.value;
     setInputCiudad(value);
-
+    setCiudadSeleccionada(null);
 
     if (value.trim() === "") {
         setSugerencia([]);
-        setCiudadSeleccionada(null);
+        setShowSugerencias(false);
         return;
     }
 
@@ -28,49 +30,35 @@ function Ubicacion3({ onlat, onlon }) {
         });
         if (response.ok) {
             const data = await response.json();
-            setSugerencia(data.map(ciudad => ({
-                name: `${ciudad.nombre}${ciudad.country ? ', ' + ciudad.country : ''}`,
-            })));
+            const ciudades = data.map(ciudad => ({
+                nombre: ciudad.nombre,
+                country: ciudad.country,
+                lat: ciudad.lat,
+                lon: ciudad.lon,
+                displayName: `${ciudad.nombre}${ciudad.country ? ', ' + ciudad.country : ''}`,
+            }));
+            setSugerencia(ciudades);
+            setShowSugerencias(ciudades.length > 0);
         } else {
             setSugerencia([]);
+            setShowSugerencias(false);
         }
     } catch (error) {
         setSugerencia([]);
+        setShowSugerencias(false);
     }
-    setCiudadSeleccionada(null);
   };
 
-  const manejarSeleccionCiudad = async(e) => {
-    const value = e.target.value;
-    setInputCiudad(value); 
-    const [cityName, countryName] = value.split(',').map(s => s.trim());
-
-    try {
-        const response = await fetch(`http://localhost:3000/weather/cords?city=${encodeURIComponent(cityName)}&country=${encodeURIComponent(countryName || '')}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (response.ok) {
-            const data = await response.json();
-            if (data && data.length > 0) {
-                setCiudadSeleccionada({
-                    name: data[0].nombre,
-                    lat: data[0].lat,
-                    lon: data[0].lon,
-                    country: data[0].country
-                });
-            } else {
-                setCiudadSeleccionada(null);
-            }
-        } else {
-            setCiudadSeleccionada(null);
-        }
-    } catch (error) {
-        setCiudadSeleccionada(null);
-    }
-    setSugerencia([]); 
+  const manejarSeleccionCiudad = (ciudad) => {
+    setInputCiudad(ciudad.displayName);
+    setCiudadSeleccionada({
+        name: ciudad.nombre,
+        lat: ciudad.lat,
+        lon: ciudad.lon,
+        country: ciudad.country
+    });
+    setSugerencia([]);
+    setShowSugerencias(false);
   };
 
   const manejarEnvio = (e) => {
@@ -78,79 +66,108 @@ function Ubicacion3({ onlat, onlon }) {
     if (CiudadSeleccionada) {
       onlat(CiudadSeleccionada.lat);
       onlon(CiudadSeleccionada.lon);
-      updateUserLocation({
-        lat: CiudadSeleccionada.lat,
-        lon: CiudadSeleccionada.lon,
-        city: CiudadSeleccionada.name,
-        country: CiudadSeleccionada.country
-      });
+      
+      // Solo actualizar ubicación temporal si es para cambio temporal
+      if (isTemporaryLocation) {
+        updateUserLocation({
+          lat: CiudadSeleccionada.lat,
+          lon: CiudadSeleccionada.lon,
+          city: CiudadSeleccionada.name,
+          country: CiudadSeleccionada.country
+        });
+      }
     }
   };
   
+  // Cerrar dropdown al hacer click fuera
   useEffect(() => {
-    // Adjust select position if input changes size
-    const updateSelectPosition = () => {
-        if (inputRef.current) {
-            const inputRect = inputRef.current.getBoundingClientRect();
-            const top = inputRect.bottom + window.scrollY; // Input bottom + scroll offset
-            const left = inputRect.left + window.scrollX;   // Input left + scroll offset
-            const width = inputRect.width + 'px';
-
-            selectStyle.position = 'absolute';
-            selectStyle.top = top + 'px';
-            selectStyle.left = left + 'px';
-            selectStyle.width = width;
-        }
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowSugerencias(false);
+      }
     };
 
-    updateSelectPosition();
-    window.addEventListener('resize', updateSelectPosition);
-
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-        window.removeEventListener('resize', updateSelectPosition);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
-}, [inputCiudad]);
-
-const selectStyle = {
-  display: sugerencia.length > 0 ? 'block' : 'none',
-  width: '200px',
-  padding: '8px',
-  border: '1px solid #2563eb', // Tailwind blue-600
-  borderRadius: '0.375rem', // Tailwind rounded
-  backgroundColor: '#fff',
-  color: '#1e293b', // Tailwind slate-800
-  boxShadow: '0 2px 8px rgba(37, 99, 235, 0.08)', // subtle blue shadow
-  zIndex: 20,
-  fontSize: '1rem',
-  outline: 'none',
-};
+  }, []);
 
   return (
     <form onSubmit={manejarEnvio} className="mb-4">
-        <input
-            ref={inputRef}
-            type="text"
-            value={inputCiudad}
-            onChange={manejarCambio}
-            placeholder="Escribe tu ciudad"
-            className="p-2 border rounded mr-2"
-            style={{ width: '200px', padding: '8px', border: '1px solid #ccc' }}
-        />
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+        <div style={{ position: 'relative', marginBottom: '15px' }} ref={dropdownRef}>
+            <input
+                ref={inputRef}
+                type="text"
+                value={inputCiudad}
+                onChange={manejarCambio}
+                placeholder="Escribe tu ciudad"
+                style={{ 
+                    width: '200px', 
+                    padding: '8px', 
+                    border: '1px solid #ccc',
+                    borderRadius: showSugerencias ? '4px 4px 0 0' : '4px',
+                    outline: 'none'
+                }}
+                autoComplete="off"
+            />
+            
+            {showSugerencias && (
+                <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    width: '200px',
+                    backgroundColor: '#1a237e',
+                    border: '1px solid #1a237e',
+                    borderTop: 'none',
+                    borderRadius: '0 0 4px 4px',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                    zIndex: 1000,
+                    maxHeight: '150px',
+                    overflowY: 'auto'
+                }}>
+                    {sugerencia.map((ciudad, index) => (
+                        <div
+                            key={index}
+                            onClick={() => manejarSeleccionCiudad(ciudad)}
+                            style={{
+                                padding: '8px',
+                                cursor: 'pointer',
+                                borderBottom: index < sugerencia.length - 1 ? '1px solid rgba(255, 255, 255, 0.2)' : 'none',
+                                fontSize: '14px',
+                                transition: 'background-color 0.2s',
+                                color: 'white'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.target.style.backgroundColor = '#2563eb';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.target.style.backgroundColor = '#1a237e';
+                            }}
+                        >
+                            {ciudad.displayName}
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+        
+        <button 
+            type="submit" 
+            className="bg-blue-600 text-white px-4 py-2 rounded"
+            style={{
+                backgroundColor: '#2563eb',
+                color: 'white',
+                border: 'none',
+                padding: '8px 16px',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontSize: '14px'
+            }}
+        >
             Confirmar ubicación
         </button>
-        <select
-            value={inputCiudad} //  Make sure select value is controlled
-            onChange={manejarSeleccionCiudad}
-            className="p-2 border rounded mr-2"
-            style={{ width: '200px', padding: '8px', border: '1px solid #ccc' , display: sugerencia.length > 0 ? 'block' : 'none' }}
-        > <option value="">-- Selecciona --</option>
-          {sugerencia.map((ciudad, index) => (
-              <option key={index} value={ciudad.name}>
-                  {ciudad.name}
-              </option>
-          ))}
-        </select>
     </form>
   );
 }

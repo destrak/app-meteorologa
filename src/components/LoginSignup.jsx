@@ -5,10 +5,12 @@ import open_eye from '../assets/eye.svg';
 import closed_eye from '../assets/eye-closed.svg';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import ModalPrimerLogin from './ModalPrimerLogin';
 
 function LoginSignup({ isRegister = false }) {
     let navigate = useNavigate();
     const { login, register, loading } = useUser();
+    const [showModalPrimerLogin, setShowModalPrimerLogin] = useState(false);
 
     useEffect(() => {
         document.body.classList.add("login_bg");
@@ -67,7 +69,12 @@ function LoginSignup({ isRegister = false }) {
             const result = await login(formData.email, formData.password);
             
             if (result.success) {
-                navigate("/home");
+                if (!result.hasFavoriteCity) {
+                    // Mostrar modal para primer login
+                    setShowModalPrimerLogin(true);
+                } else {
+                    navigate("/home");
+                }
             } else {
                 alert(result.error);
             }
@@ -76,6 +83,11 @@ function LoginSignup({ isRegister = false }) {
 
     const handleGoogleAuth = () => {
         alert('La autenticación con Google estará disponible próximamente');
+    };
+
+    const handleCloseModalPrimerLogin = () => {
+        setShowModalPrimerLogin(false);
+        navigate("/home");
     };
 
     return (
@@ -164,7 +176,7 @@ function LoginSignup({ isRegister = false }) {
                     <path d="M4.31 11.86c-.21-.63-.33-1.3-.33-2.02s.11-1.38.33-2.02V7.7L1.17 5.38l-.1.05A9.97 9.97 0 000 9.84c0 1.61.39 3.13 1.07 4.49l3.24-2.47z" fill="#FBBC04" />
                     <path d="M10 3.88c1.88 0 3.13.8 3.85 1.48l2.84-2.76C14.96.99 12.7 0 10 0 6.13 0 2.74 2.18 1.07 5.57l3.24 2.47C5.1 5.61 7.35 3.88 10 3.88z" fill="#EA4335" />
                 </svg>
-                Continue with Google
+                Continuar con Google
             </button>
 
             <p className="login-text">
@@ -174,6 +186,11 @@ function LoginSignup({ isRegister = false }) {
                     <>¿No tienes una cuenta? <a href="/register">Registrate</a></>
                 )}
             </p>
+            
+            {/* Modal para primer login */}
+            {showModalPrimerLogin && (
+                <ModalPrimerLogin onClose={handleCloseModalPrimerLogin} />
+            )}
         </div>
     )
 }

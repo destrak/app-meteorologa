@@ -13,12 +13,25 @@ function Home() {
   const [mostrarUbicacion, setMostrarUbicacion] = useState(false);
   const [ciudadSeleccionada, setCiudadSeleccionada] = useState(null);
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, userLocation, favoriteCity, updateUserLocation } = useUser();
 
   const userName =
     user?.user_metadata?.username ||
     user?.email?.split('@')[0] ||
     'Usuario';
+
+  // Función para usar ubicación favorita
+  const usarUbicacionFavorita = () => {
+    if (favoriteCity) {
+      const favoriteLocation = {
+        lat: favoriteCity.lat,
+        lon: favoriteCity.lon,
+        city: favoriteCity.nombre,
+        country: favoriteCity.country
+      };
+      updateUserLocation(favoriteLocation);
+    }
+  };
 
   const diaSimulado = {
     icon: '01d',
@@ -33,6 +46,7 @@ function Home() {
       <BarNav />
 
       <div className="contenedor-home">
+
         {/* Sección superior con clima y recomendadas */}
         <div className="seccion-superior">
           <div className="columna-izquierda">
