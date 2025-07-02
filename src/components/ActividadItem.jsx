@@ -1,24 +1,29 @@
-import React, { useState } from 'react';
-
-
-const ActividadItem = ({ titulo, duracion, dificultad, descripcion }) => {
+function ActividadItem({ nombre, duracion, tipo, descripcion, onEditar }) {
   const [expandido, setExpandido] = useState(false);
 
   return (
     <div className="actividad-item" onClick={() => setExpandido(!expandido)}>
       <div className="actividad-header">
-        <h3>{titulo}</h3>
-        <p className="actividad-meta">
-          {duracion} — Dificultad: {dificultad}
-        </p>
+        {nombre}
+      </div>
+      <div className="actividad-meta">
+        {duracion} — Tipo: {tipo}
       </div>
       {expandido && (
         <div className="actividad-descripcion">
-          <p>{descripcion}</p>
+          {descripcion}
+          <br />
+          <button
+            className="editar-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              onEditar();
+            }}
+          >
+            Editar
+          </button>
         </div>
       )}
     </div>
   );
-};
-
-export default ActividadItem;
+}

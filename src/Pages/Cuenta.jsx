@@ -5,6 +5,7 @@ import usuarioImg from '../assets/usuario.jpg';
 import { useUser } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import ModalUbicacionFavorita from '../components/ModalUbicacionFavorita';
+import ActividadesGenerales from '../components/ActividadesGenerales';
 
 function Cuenta() {
   const { user, userLocation, favoriteCity, logout } = useUser();
@@ -117,8 +118,9 @@ function Cuenta() {
         </div>
 
         <div className="cuenta-panel-derecho">
-          <ActividadesRecomendadas />
+        <ActividadesGenerales/>
         </div>
+            
       </div>
       
       {/* Modal para establecer ubicación favorita */}

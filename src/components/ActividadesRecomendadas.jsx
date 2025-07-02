@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
-import ModalNuevaPreferencia from './ModalNuevaPreferencia';
 
 function ActividadesRecomendadas() {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, temperatura, clima } = useUser();
   const [actividades, setActividades] = useState([]);
-  const [nuevapreferencia, setNuevaPref] = useState(false);
 
   useEffect(() => {
     if (user && user.id) {
@@ -44,11 +42,6 @@ function ActividadesRecomendadas() {
     }
   };
 
-  const handleNuevaPref = (nuevaActividad) => {
-    setActividades(prev => [...prev, nuevaActividad]);
-    setNuevaPref(false);
-  };
-
   return (
     <div className="actividades-container">
       <h2 className="actividades-titulo">Actividades recomendadas</h2>
@@ -58,21 +51,12 @@ function ActividadesRecomendadas() {
           <ActividadItem key={idx} {...actividad} />
         ))}
       </div>
+
       <div className="botones-de-preferencias">
-        <button
-          className="boton-nueva-preferencia"
-          onClick={() => setNuevaPref(true)}
-        >
-          Nueva preferencia
-        </button>
         <button className="boton-preferencias" onClick={irAPreferencias}>
           Cambiar preferencias
         </button>
       </div>
-
-      {nuevapreferencia && (
-        <ModalNuevaPreferencia setNuevaPref={setNuevaPref} handleNuevaPref={handleNuevaPref} />
-      )}
     </div>
   );
 }
