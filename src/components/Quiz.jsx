@@ -16,7 +16,12 @@ function Quiz() {
         if (data.activities) {
           setActividades(data.activities.map(a => ({
             id: a.id,
-            label: a.nombre // or a.label if your DB uses that
+            label: a.nombre, // or a.label if your DB uses that
+            min_temp: a.min_temp,
+            max_temp: a.max_temp,
+            prefiere_soleado: a.prefiere_soleado,
+            prefiere_nublado: a.prefiere_nublado,
+            prefiere_lluvia: a.prefiere_lluvia,
           })));
         }
       })
@@ -94,6 +99,8 @@ const toggleActividad = (actividad_id) => {
     }
     for (const sel of seleccionadas) {
       if (sel.id === undefined && user && user.id) {
+        const actividad = actividades.find(a => a.id === sel.actividad_id);
+        if (!actividad) continue; // parche mientras busco una manera mas efeciente temporalmente, se nota que demora el agregar
         try {
           await fetch('http://localhost:3000/user-preferences', {
             method: 'POST',
@@ -101,11 +108,11 @@ const toggleActividad = (actividad_id) => {
             body: JSON.stringify({
               usuario_id: user.id,
               actividad_id: sel.actividad_id,
-              min_temp: -30, // Set sensible defaults or collect from user
-              max_temp: 30,
-              prefiere_soleado: true,
-              prefiere_nublado: true,
-              prefiere_lluvia: true
+              min_temp: actividad.min_temp,
+              max_temp: actividad.max_temp,
+              prefiere_soleado: actividad.prefiere_soleado,
+              prefiere_nublado: actividad.prefiere_nublado,
+              prefiere_lluvia: actividad.prefiere_lluvia,
             })
           });
         } catch (err) {

@@ -11,9 +11,12 @@ const CajaTablasNoRecomendadas = () => {
   const [loading, setLoading] = useState(false);
   const [clima, setClima] = useState('');
   const [temperatura, setTemperatura] = useState(null);
-  const { userLocation, setTemp, setClimate } = useUser();
+  const {user, userLocation, setTemp, setClimate } = useUser();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    setElementos([]);
+  }, [tab]);
   // Obtener clima actual
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -45,19 +48,22 @@ const CajaTablasNoRecomendadas = () => {
       if (!temperatura && !clima) return;
       setLoading(true);
 
-      let url = 'http://localhost:3000/activities/norecomendadas?';
-      if (tab === 'temperatura' && temperatura !== null) {
-        url += `temperatura=${temperatura}`;
-      } else if (tab === 'clima' && clima) {
-        url += `clima=${clima}`;
-      } else if (tab === 'ambos' && temperatura !== null && clima) {
-        url += `temperatura=${temperatura}&clima=${clima}`;
-      }
+      let url = `http://localhost:3000/user-preferences/notrecommended/${user.id}`;
+      const params = [];
+      if (temperatura !== null && (tab === 'temperatura' || tab === 'ambos')) params.push(`temperatura=${temperatura}`);
+      if (clima && (tab === 'clima' || tab === 'ambos')) params.push(`clima=${clima}`);
+      if (params.length) url += `?${params.join('&')}`;
 
+      console.log('Fetching actividades no recomendadas from:', url);
+      
       try {
         const response = await fetch(url);
+        console.log('Fetched', response);
         const data = await response.json();
-        setElementos(data.activities || []);
+        console.log('response to json', data);
+        // Aquí puedes actualizar el estado con las actividades no recomendadas
+        setElementos(data.notRecommended || []);
+        console.log('elementos', elementos);
       } catch (error) {
         console.error('Error fetching actividades no recomendadas:', error);
         setElementos([]);
@@ -66,7 +72,7 @@ const CajaTablasNoRecomendadas = () => {
       }
     };
     fetchActividades();
-  }, [tab, temperatura, clima]);
+  }, [user, tab, temperatura, clima]);
 
   const getClimaEspanol = (weatherMain) => {
     const mapa = {
@@ -86,17 +92,17 @@ const CajaTablasNoRecomendadas = () => {
     : '';
 
   const elementosFormateados = elementos.map(act => ({
-    id: act.id,
-    nombre: act.nombre,
-    descripcion: act.descripcion || 'Sin descripción',
-    tipo: act.tipo,
-    temperaturaIdeal: (act.min_temp + act.max_temp) / 2,
-    temperaturaMin: act.min_temp,
-    temperaturaMax: act.max_temp,
+    id: act.actividades.id,
+    nombre: act.actividades.nombre,
+    descripcion: act.actividades.descripcion || 'Sin descripción',
+    tipo: act.actividades.tipo,
+    temperaturaIdeal: (act.actividades.min_temp + act.actividades.max_temp) / 2,
+    temperaturaMin: act.actividades.min_temp,
+    temperaturaMax: act.actividades.max_temp,
     climaIdeal: [
-      act.prefiere_soleado && 'Clear',
-      act.prefiere_nublado && 'Clouds',
-      act.prefiere_lluvia && 'Rain'
+      act.actividades.prefiere_soleado && 'Clear',
+      act.actividades.prefiere_nublado && 'Clouds',
+      act.actividades.prefiere_lluvia && 'Rain'
     ].filter(Boolean)
   }));
 
