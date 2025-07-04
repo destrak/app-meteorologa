@@ -29,11 +29,11 @@ export default function ModalNuevaPreferencia({ setNuevaPref, handleNuevaPref })
                             </div>
                             <div className="modal-nueva-preferencia-checkboxes">
                                 <label>
-                                    ¿Es soleado?
+                                    ¿Es para un clima soleado?
                                     <input type="checkbox" name="soleado" />
                                 </label>
                                 <label>
-                                    ¿Es nublado?
+                                    ¿Es para un clima nublado?
                                     <input type="checkbox" name="nublado" />
                                 </label>
                                 <label>
