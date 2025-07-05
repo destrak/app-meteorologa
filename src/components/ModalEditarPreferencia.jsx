@@ -18,10 +18,47 @@ export default function ModalEditarPreferencia({ actividad, onClose, onGuardar }
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onGuardar({ ...actividad, ...formData });
-    onClose();
+    const dataToSend = {
+      min_temp: parseFloat(formData.tempMin), 
+      max_temp: parseFloat(formData.tempMax), 
+      prefiere_soleado: formData.soleado,
+      prefiere_nublado: formData.nublado,
+      prefiere_lluvia: formData.lluvia,
+    };
+    try {
+      const response = await fetch(`http://localhost:3000/user-preferences/${actividad.idPreferencia}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+      }
+
+      const updatedPreference = await response.json();
+      console.log('Preferencia actualizada exitosamente:', updatedPreference);
+
+      onGuardar({
+        ...actividad,
+        temperatura_min: dataToSend.min_temp,
+        temperatura_max: dataToSend.max_temp,
+        soleado: dataToSend.prefiere_soleado,
+        nublado: dataToSend.prefiere_nublado,
+        lluvia: dataToSend.prefiere_lluvia,
+        descripcion: formData.descripcion
+      });
+      onClose();
+
+    } catch (error) {
+      console.error('Error al actualizar la preferencia:', error);
+      alert('Error al actualizar la preferencia: ' + error.message);
+    }
   };
 
   return (

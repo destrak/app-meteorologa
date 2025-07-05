@@ -96,13 +96,13 @@ const CajaTablasNoRecomendadas = () => {
     nombre: act.actividades.nombre,
     descripcion: act.actividades.descripcion || 'Sin descripción',
     tipo: act.actividades.tipo,
-    temperaturaIdeal: (act.actividades.min_temp + act.actividades.max_temp) / 2,
-    temperaturaMin: act.actividades.min_temp,
-    temperaturaMax: act.actividades.max_temp,
+    temperaturaIdeal: (act.min_temp + act.max_temp) / 2,
+    temperaturaMin: act.min_temp,
+    temperaturaMax: act.max_temp,
     climaIdeal: [
-      act.actividades.prefiere_soleado && 'Clear',
-      act.actividades.prefiere_nublado && 'Clouds',
-      act.actividades.prefiere_lluvia && 'Rain'
+      act.prefiere_soleado && 'Clear',
+      act.prefiere_nublado && 'Clouds',
+      act.prefiere_lluvia && 'Rain'
     ].filter(Boolean)
   }));
 

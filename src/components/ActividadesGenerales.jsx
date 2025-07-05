@@ -20,18 +20,17 @@ function ActividadesGenerales() {
           if (data.preferences) {
             setActividades(
               data.preferences
-                .filter(pref => pref.actividades)
                 .map(pref => ({
                   titulo: pref.actividades.nombre || 'Sin título',
                   nombre: pref.actividades.nombre || 'Sin título',
                   duracion: pref.actividades.duracion || 'X horas',
                   tipo: pref.actividades.tipo || 'Desconocida',
                   descripcion: pref.actividades.descripcion || 'Sin descripción',
-                  temperatura_min: pref.actividades.temperatura_min,
-                  temperatura_max: pref.actividades.temperatura_max,
-                  soleado: pref.actividades.soleado,
-                  nublado: pref.actividades.nublado,
-                  lluvia: pref.actividades.lluvia,
+                  temperatura_min: pref.min_temp,
+                  temperatura_max: pref.max_temp,
+                  soleado: pref.prefiere_soleado,
+                  nublado: pref.prefiere_nublado,
+                  lluvia: pref.prefiere_lluvia,
                   idPreferencia: pref.id
                 }))
             );
@@ -41,7 +40,11 @@ function ActividadesGenerales() {
           console.error('Error al obtener actividades generales:', err);
         });
     }
-  }, [user]);
+  }, [user, setActividades]);
+
+  useEffect(() => {
+          console.log('pref.temperatura_min:', actividades); // Log the temperatura_min value
+  }, [actividades]);
 
   const irAPreferencias = () => {
     if (location.pathname === '/') {
