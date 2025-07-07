@@ -12,22 +12,36 @@ function CajaDiaVertical({ onVerPronostico }) {
       if (!userLocation?.lat || !userLocation?.lon) return;
 
       try {
-        const response = await fetch('http://localhost:3000/weather/hourly', {
+        // Obtener datos actuales de la hora para temperatura actual y clima
+        const hourlyResponse = await fetch('http://localhost:3000/weather/hourly', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ lat: userLocation.lat, lon: userLocation.lon })
         });
 
-        if (response.ok) {
-          const data = await response.json();
-          const climaActual = data.hourly[0];
+        // Obtener datos diarios para temperaturas máximas y mínimas
+        const dailyResponse = await fetch('http://localhost:3000/weather/daily', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ lat: userLocation.lat, lon: userLocation.lon })
+        });
+
+        if (hourlyResponse.ok && dailyResponse.ok) {
+          const hourlyData = await hourlyResponse.json();
+          const dailyData = await dailyResponse.json();
+          
+          const climaActual = hourlyData.hourly[0];
+          const hoy = dailyData.length > 0 ? dailyData[0] : null;
 
           const nuevoDia = {
             icon: climaActual.weather[0].icon,
             date: new Date().toLocaleDateString('es-CL', { day: '2-digit', month: '2-digit', year: 'numeric' }),
             precipitation: climaActual.pop * 100,
-            maxTemp: climaActual.main.temp_max,
-            minTemp: climaActual.main.temp_min
+            // Temperatura actual del momento
+            tempActual: climaActual.main.temp,
+            // Usar temperaturas del endpoint daily si están disponibles, sino usar las del hourly
+            maxTemp: hoy ? hoy.maxTemp : climaActual.main.temp_max,
+            minTemp: hoy ? hoy.minTemp : climaActual.main.temp_min
           };
 
           setDia(nuevoDia);
@@ -45,8 +59,9 @@ function CajaDiaVertical({ onVerPronostico }) {
   const fechaFormateada = dia?.date || 'Fecha desconocida';
   const iconoUrl = dia?.icon ? `https://openweathermap.org/img/wn/${dia.icon}@2x.png` : '';
   const probLluvia = dia?.precipitation !== undefined ? `${Math.floor(dia.precipitation)}% 💧` : 'N/A';
-  const tempMax = dia?.maxTemp !== undefined ? Math.floor(dia.maxTemp) : '?';
-  const tempMin = dia?.minTemp !== undefined ? Math.floor(dia.minTemp) : '?';
+  const tempMax = dia?.maxTemp !== undefined ? Math.round(dia.maxTemp) : '?';
+  const tempMin = dia?.minTemp !== undefined ? Math.round(dia.minTemp) : '?';
+  const tempActual = dia?.tempActual !== undefined ? Math.round(dia.tempActual) : '?';
 
   // Función para usar ubicación favorita
   const usarUbicacionFavorita = () => {
@@ -74,7 +89,10 @@ function CajaDiaVertical({ onVerPronostico }) {
 
       <span className="dia-fecha">{fechaFormateada}</span>
       <span className="dia-lluvia">{probLluvia}</span>
-      <span className="dia-temp">{tempMax}° / {tempMin}°</span>
+      <div className="temperaturas-contenedor">
+        <span className="temp-actual">Actual: {tempActual}°</span>
+        <span className="temp-rango">Máx: {tempMax}° | Mín: {tempMin}°</span>
+      </div>
 
       <div className="caja-botones-verticales">
         <button

@@ -224,6 +224,22 @@ function GridActividadesHome() {
     setClimate(climaActual);
   };
 
+  // Función para traducir clima de inglés a español
+  const getClimaEspanol = (weatherMain) => {
+    const mapaClima = {
+      'Clear': 'Despejado',
+      'Clouds': 'Nublado',
+      'Rain': 'Lluvioso',
+      'Drizzle': 'Llovizna',
+      'Thunderstorm': 'Tormenta',
+      'Snow': 'Nieve',
+      'Mist': 'Neblina',
+      'Fog': 'Niebla',
+      'Haze': 'Bruma'
+    };
+    return mapaClima[weatherMain] || weatherMain;
+  };
+
   const irAPreferencias = () => {
     if (location.pathname === '/') {
       navigate('/cuenta');
@@ -283,7 +299,7 @@ function GridActividadesHome() {
           
           {climaActual && clima && (
             <div className="filtro-detalle">
-              <span>Clima: <strong>{climaActual}</strong></span>
+              <span>Clima: <strong>{getClimaEspanol(climaActual)}</strong></span>
             </div>
           )}
         </div>

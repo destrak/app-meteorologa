@@ -174,8 +174,9 @@ export default function ModalEditarActividadPersonalizada({ actividad, onClose, 
                                 </label>                                
                             </div>
                             <div className="modal-nueva-preferencia-checkboxes">
+                                <div className="checkboxes-titulo-small">Preferencias climáticas</div>
                                 <label>
-                                    ¿Es para un clima soleado?
+                                    Soleado
                                     <input 
                                         type="checkbox" 
                                         name="prefiere_soleado"
@@ -184,7 +185,7 @@ export default function ModalEditarActividadPersonalizada({ actividad, onClose, 
                                     />
                                 </label>
                                 <label>
-                                    ¿Es para un clima nublado?
+                                    Nublado
                                     <input 
                                         type="checkbox" 
                                         name="prefiere_nublado"
@@ -193,7 +194,7 @@ export default function ModalEditarActividadPersonalizada({ actividad, onClose, 
                                     />
                                 </label>
                                 <label>
-                                    ¿Prefiere lluvia?
+                                    Lluvia
                                     <input 
                                         type="checkbox" 
                                         name="prefiere_lluvia"

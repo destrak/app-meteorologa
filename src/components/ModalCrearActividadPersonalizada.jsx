@@ -184,6 +184,7 @@ export default function ModalCrearActividadPersonalizada({ onClose, onCrear }) {
                                 </label>                                
                             </div>
                             <div className="modal-nueva-preferencia-checkboxes">
+                                <div className="checkboxes-titulo-small">Preferencias climáticas</div>
                                 <label>
                                     Soleado
                                     <input 
