@@ -6,48 +6,27 @@ export default function ModalNuevaPreferencia({ setNuevaPref, handleNuevaPref })
             <div className="modal-preferencias-container">
                 <div className="modal-nueva-preferencia-fill">
                     <button className="close-btn" onClick={() => setNuevaPref(false)}>×</button>
-                    <h3>Nueva Actividad</h3>
-                    <form onSubmit={handleNuevaPref} className="modal-nueva-preferencia-form">
-                        <div className="modal-nueva-preferencia-flex">
-                            <div className="modal-nueva-preferencia-fields">
-                                <label>
-                                    Nombre de la actividad
-                                    <input type="text" required />
-                                </label>
-                                <label>
-                                    Temperatura mínima
-                                    <input type="number" required />
-                                </label>
-                                <label>
-                                    Temperatura máxima
-                                    <input type="number" required />
-                                </label>
-                                <label>
-                                    Tipo de actividad
-                                    <input type="text" required />
-                                </label>                                
-                            </div>
-                            <div className="modal-nueva-preferencia-checkboxes">
-                                <label>
-                                    ¿Es para un clima soleado?
-                                    <input type="checkbox" name="soleado" />
-                                </label>
-                                <label>
-                                    ¿Es para un clima nublado?
-                                    <input type="checkbox" name="nublado" />
-                                </label>
-                                <label>
-                                    ¿Prefiere lluvia?
-                                    <input type="checkbox" name="lluvia" />
-                                </label>
-                            </div>
-                        </div>
-                        <label className="modal-nueva-preferencia-descripcion">
-                            Descripción
-                            <textarea />
-                        </label>
-                        <button type="submit" className="boton-modal-preferencias">Guardar</button>
-                    </form>
+                    <h3>Nueva Preferencia</h3>
+                    <p>Selecciona una actividad de la plataforma para agregar a tus preferencias.</p>
+                    <p>Esta funcionalidad te llevará a la página de selección de actividades.</p>
+                    <div className="modal-acciones">
+                        <button 
+                            className="boton-modal-preferencias" 
+                            onClick={() => {
+                                setNuevaPref(false);
+                                // Redirigir a la página de selección (Quiz)
+                                window.location.href = '/preguntas';
+                            }}
+                        >
+                            Ir a Seleccionar Actividades
+                        </button>
+                        <button 
+                            className="boton-secundario" 
+                            onClick={() => setNuevaPref(false)}
+                        >
+                            Cancelar
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

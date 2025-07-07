@@ -85,6 +85,7 @@ const toggleActividad = (actividad_id) => {
     console.log('unSeleccionadas updated:', unseleccionadas);
   }, [seleccionadas, unseleccionadas]);
 
+
  const handleFinalizar = async () => {
     for (const pref of unseleccionadas) {
       if (pref.id !== undefined) {

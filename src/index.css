@@ -496,59 +496,141 @@ body {
 .actividades-container {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  min-height: 580px;
   height: 100%;
-  overflow: hidden;
+  overflow: scroll;
+  padding: 16px 20px;
+  gap: 12px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* 🧠 Título */
 .actividades-titulo {
   color: white;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  margin-top: 0;
   font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+/* Subtítulos de actividades */
+.actividades-subtitulo {
+  color: #e8e9f2;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  text-align: left;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  border-left: 4px solid #414894;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+/* Separador entre secciones */
+.separador-actividades {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #414894, transparent);
+  margin: 16px 0;
+  opacity: 0.6;
+  border-radius: 1px;
+  flex-shrink: 0;
 }
 
 /* 🧾 Lista scrollable */
-
 .actividades-lista {
-  flex-grow: 1;
+  flex: 1;
+  min-height: 200px;
+  max-height: 300px;
   overflow-y: auto;
   overflow-x: hidden; 
   display: flex;
-  flex-wrap: wrap;        /* <-- allow items to wrap to next line if needed */
-  gap: 24px;              /* <-- space between items */
-  padding-right: 5px;
-  width: 100%;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.actividades-lista::-webkit-scrollbar {
+  width: 6px;
+}
+
+.actividades-lista::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.actividades-lista::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.actividades-lista::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
 
 
 /* 🧱 Tarjeta individual */
 .actividad-item {
-  width: 100% !important;
-  display: block !important;
-  min-width: 0 !important;
-  max-width: 100% !important;
+  width: 100%;
   background-color: #9fa8da;
   border-radius: 8px;
   padding: 12px 16px;
   color: #000;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   white-space: normal;
   word-break: break-word;
   overflow-wrap: break-word;
-  max-width: 300px;
+  margin-bottom: 0;
+}
+
+.actividad-personalizada {
+  background-color: #a3a9da;
+  border-left: 4px solid #1976d2;
+}
+
+.actividad-item.expandido {
+  background-color: #9fa8da;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.actividad-preferencia {
+  background-color: #9fa8da;
+  border-left: 4px solid #2475f2;
+}
+
+.actividad-preferencia.expandido {
+  background-color: #9fa8da;
+  border-left: 4px solid #2475f2;
 }
 
 .actividad-item:hover {
-  transform: scale(1.02);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .actividad-header {
   font-weight: bold;
   font-size: 16px;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
 
 .actividad-meta {
   font-size: 14px;
@@ -556,10 +638,356 @@ body {
   margin-top: 4px;
 }
 
+
+
+
 .actividad-descripcion {
-  margin-top: 8px;
+  margin-top: 12px;
+  font-size: 15px;
+  color: #2c3e50;
+  line-height: 1.4;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Badge para actividades personalizadas */
+.badge-personalizada {
+  background-color: #1976d2;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+  display: inline-block;
+}
+
+/* Lista vacía */
+.lista-vacia {
+  color: #b0b3d6;
+  font-style: italic;
+  text-align: center;
+  padding: 48px 24px;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  margin: 12px 0;
+  line-height: 1.5;
+}
+
+/* Acciones de actividades */
+.actividad-acciones {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Botón eliminar */
+.eliminar-btn {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
   font-size: 14px;
-  color: #222;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.eliminar-btn:hover {
+  background-color: #b71c1c;
+}
+
+/* Preferencias climáticas */
+.clima-preferencias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.clima-tag {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.clima-tag.soleado {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.clima-tag.nublado {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.clima-tag.lluvia {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+/* Estilos para Grid Actividades Home */
+
+/* Filtros para Home */
+.filtros-container-home {
+  background: linear-gradient(135deg, rgba(16, 21, 77, 0.9), rgba(36, 117, 242, 0.1));
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.filtros-container-home .filtros-grupo {
+  margin-bottom: 4px;
+}
+
+.filtros-container-home .filtros-grupo label {
+  color: #e8e9f2;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.filtros-container-home .filtros-botones {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.filtros-container-home .filtro-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e8e9f2;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 85px;
+  text-align: center;
+}
+
+.filtros-container-home .filtro-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.filtros-container-home .filtro-btn.activo {
+  background: linear-gradient(135deg, #2475f2, #1565c0);
+  color: white;
+  border-color: #2475f2;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(36, 117, 242, 0.3);
+}
+
+.filtros-container-home .filtro-btn:disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.filtro-info {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.filtro-info .filtro-detalle {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border-left: 2px solid #2475f2;
+}
+
+.filtro-info .filtro-detalle span {
+  color: #e8e9f2;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.filtro-info .filtro-detalle strong {
+  color: #ffffff;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+/* Filtros originales */
+.filtros-container {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.filtros-grupo {
+  margin-bottom: 12px;
+}
+
+.filtros-grupo label {
+  color: #e8e9f2;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.filtros-botones {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filtro-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e8e9f2;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filtro-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.filtro-btn.activo {
+  background: #2475f2;
+  color: white;
+  border-color: #2475f2;
+  font-weight: 600;
+}
+
+.filtro-detalle {
+  margin-top: 8px;
+}
+
+.filtro-detalle label {
+  color: #b0b3d6;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.filtro-detalle strong {
+  color: #e8e9f2;
+  font-weight: 600;
+}
+
+.actividades-lista-home {
+  min-height: 450px;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden; 
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  max-height: 70vh;
+}
+
+.actividad-item-home {
+  width: 100%;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #000;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  margin-bottom: 0;
+}
+
+/* Actividades recomendadas - azul */
+.actividad-item-home.recomendada {
+  background-color: #9fa8da;
+  border-left: 4px solid #2475f2;
+}
+
+/* Actividades NO recomendadas - rojo */
+.actividad-item-home.no-recomendada {
+  background-color: #f8a5a5;
+  border-left: 4px solid #d32f2f;
+}
+
+.actividad-item-home.expandido {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.actividad-item-home:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Contenedor de badges */
+.badges-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Badge para preferencias */
+.badge-preferencia {
+  background-color: #2475f2;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+/* Motivo de no recomendación */
+.motivo-no-recomendada {
+  background-color: rgba(211, 47, 47, 0.1);
+  color: #d32f2f;
+  padding: 6px 8px;
+  border-radius: 6px;
+  margin-top: 6px;
+  font-size: 13px;
+  border-left: 3px solid #d32f2f;
+}
+
+.motivo-no-recomendada strong {
+  font-weight: 700;
 }
 
 /* 🎯 Botón de preferencias */
@@ -599,7 +1027,7 @@ body {
   color: white;
   width: 300px;
   min-height: 450px;
-  height: auto;
+  height: 100%;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   align-self: flex-start;
@@ -640,8 +1068,8 @@ body {
   padding: 30px;
   color: white;
   width: 100%;
-  max-width: 820px;
-  height: 450px; /* ✅ necesario para centrar respecto a esto */
+  max-width: 800px;
+  height: 700px; /* ✅ necesario para centrar respecto a esto */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1138,22 +1566,24 @@ body {
 /* home */
 /* Estilo principal del Home */
 .contenedor-home {
-  display: flex;
+  display: flex; 
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
   padding: 40px 60px;
+  min-height: 100vh;
+  height: 100%;
 }
 
 /* Asegura que ambas columnas tengan el mismo alto mínimo */
 .seccion-superior {
   display: flex;
-  align-items: stretch; /* clave para que ambas columnas crezcan igual */
+  align-items: flex-start; /* Permite que cada columna tenga su propia altura */
   gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  min-height: 520px; /* Altura mínima para nivelar las cajas */
+  min-height: auto; /* Sin altura mínima fija */
 }
 
 
@@ -1182,9 +1612,9 @@ body {
 }
 /* Columna derecha */
 .columna-derecha {
-  flex: 1;
-  min-width: 450px;
-  max-width: 750px;
+  flex: 3;
+  min-width: 600px;
+  max-width: 1000px;
   margin-left: 20px;
   margin-top: 30px;
 }
@@ -1193,12 +1623,14 @@ body {
 .contenedor-tabla-recomendada {
   background-color: #1a1d69;
   color: white;
-  padding: 24px;
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 650px;
+  max-width: 100%;
   margin: 0 auto 20px auto;
+  min-height: 580px;
+  height: auto;
 
   /* Nuevo */
   height: 480px; /* Altura fija para nivelar con la caja izquierda */
@@ -1333,10 +1765,11 @@ body {
   font-weight: bold;
 }
 
-/*Nueva Preferencias*/
-/*Boton nueva preferencia*/
-.boton-nueva-preferencia {
-  background-color: #2475f2;
+/*Nueva Actividad Personalizada*/
+
+/*Boton crear actividad*/
+.boton-nueva-actividad {
+  background-color: #1976d2;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -1348,16 +1781,21 @@ body {
   transition: background-color 0.2s ease-in-out;
 }
 
-.boton-nueva-preferencia:hover {
-  background-color: #185ddc;
+.boton-nueva-actividad:hover {
+  background-color: #155da8;
 }
 .botones-de-preferencias {
   display: flex;
   gap: 16px;
-  margin-top: 16px;
+  margin-top: auto;
+  padding-top: 16px;
+  padding-bottom: 8px;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 0;
+  flex-shrink: 0;
 }
 
 
@@ -1408,7 +1846,7 @@ body {
   align-items: flex-start;
   width: 100%;
   min-width: 340px;
-  max-width: 480px;
+  max-width: 700px;
   margin: 40px auto;
   background: #10154d;
   border-radius: 18px;
@@ -1490,10 +1928,23 @@ body {
 .modal-nueva-preferencia-flex {
   display: flex;
   flex-direction: row;
-  gap: 32px;
+  gap: 24px;
   width: 100%;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+@media (max-width: 599px) {
+  .modal-nueva-preferencia-flex {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .modal-nueva-preferencia-checkboxes {
+    padding-left: 0;
+  }
+  .modal-nueva-preferencia-checkboxes label {
+    max-width: 100%;
+  }
 }
 
 .modal-nueva-preferencia-form {
@@ -1508,7 +1959,7 @@ body {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .modal-nueva-preferencia-fields label {
@@ -1531,6 +1982,8 @@ body {
   outline: none;
   border: 1.5px solid #ffffff;
   transition: border-color 0.2s;
+  min-height: 38px;
+  box-sizing: border-box;
 }
 
 .modal-nueva-preferencia-fields input:focus {
@@ -1552,19 +2005,22 @@ body {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 10px;
   align-items: flex-start;
   padding-left: 16px;
   justify-content: flex-start;
 }
 
 @media (min-width: 600px) {
-  .modal-nueva-preferencia-fields,
+  .modal-nueva-preferencia-fields {
+    max-width: 260px;
+  }
   .modal-nueva-preferencia-checkboxes {
-    max-width: 220px;
+    max-width: 200px;
   }
   .modal-nueva-preferencia-flex {
     justify-content: center;
+    gap: 32px;
   }
 }
 
@@ -1574,34 +2030,38 @@ body {
   justify-content: space-between;
   background: #a3a9da;
   color: #23265d;
-  font-weight: 600;
-  border-radius: 0.75rem;
-  padding: 0.8rem 1.2rem;
-  margin-top: 10%;
-  width: 150px;
-  text-align: center;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-top: 6px;
+  width: 100%;
+  max-width: 180px;
   margin-bottom: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  gap: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  height: 38px;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
 .modal-nueva-preferencia-checkboxes label:hover {
   background: #7a7fb4;
   color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
 
 .modal-nueva-preferencia-checkboxes input[type="checkbox"] {
   accent-color: #1570EF;
-  width: 22px;
-  height: 22px;
-  margin-left: 16px;
-  margin-right: 0;
+  width: 18px;
+  height: 18px;
+  margin: 0;
   cursor: pointer;
-  border-radius: 6px;
-  border: 2px solid #3b3195;
-  background: #fff;
-  transition: border-color 0.2s;
+  border-radius: 3px;
+  transition: all 0.2s;
+  flex-shrink: 0;
 }
 .modal-nueva-preferencia-descripcion {
   width: 100%;
@@ -1629,6 +2089,81 @@ body {
   resize: vertical;
 }
 
+/* Error messages */
+.error-message {
+  color: #ff6b6b;
+  font-size: 0.875rem;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Select styling */
+.modal-nueva-preferencia-fields select {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #1a237e;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  border: 1.5px solid #ffffff;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+
+.modal-nueva-preferencia-fields select:focus {
+  border-color: #1570EF;
+}
+
+.modal-nueva-preferencia-fields option {
+  background: #1a237e;
+  color: #fff;
+  padding: 8px;
+}
+
+/* Modal actions */
+.modal-acciones {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Información de actividad (solo lectura) */
+.actividad-info-readonly {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.actividad-info-readonly p {
+  margin: 8px 0;
+  color: #e8e9f2;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.actividad-info-readonly strong {
+  color: #b0b3d6;
+  font-weight: 600;
+}
+
+/* Título pequeño para checkboxes */
+.checkboxes-titulo-small {
+  color: #b0b3d6;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-align: left;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(176, 179, 214, 0.3);
+}
+
+
 .boton-modal-preferencias{
   background-color: #1976d2;
   color: white;
@@ -1649,15 +2184,16 @@ body {
 
 /*modal editar preferencia botom*/
 .editar-btn {
-  margin-top: 0.5rem;
-  padding: 0.4rem 1rem;
+  margin-top: 0;
+  padding: 8px 16px;
   background-color: #0052cc;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
 }
 
 .editar-btn:hover {

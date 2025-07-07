@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BarNav from '../components/BarNav';
 import UbicationQuery from '../components/UbicationQuery';
-import ActividadesRecomendadas from '../components/ActividadesRecomendadas';
+import GridActividadesHome from '../components/GridActividadesHome';
 import CajaTablasNoRecomendadas from '../components/CajaTablasNoRecomendada';
 import CajaDiaVertical from '../components/CajadiaVertical';
 import iconoCerrar from '../assets/x.svg';
@@ -61,18 +61,11 @@ function Home() {
 
           <div className="columna-derecha">
             <div className="contenedor-tabla-recomendada">
-              <ActividadesRecomendadas />
+              <GridActividadesHome />
             </div>
           </div>
         </div>
 
-        {/* Sección inferior con no recomendadas */}
-        <div className="seccion-inferior">
-          <div className="seccion-no-recomendadas">
-            <h2>Actividades no recomendadas</h2>
-            <CajaTablasNoRecomendadas />
-          </div>
-        </div>
 
               {/* Popup para cambiar ubicación */}
 
