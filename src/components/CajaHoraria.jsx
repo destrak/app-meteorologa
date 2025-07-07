@@ -70,27 +70,40 @@ function CajaHoraria({ lat, lon }) {
   }
 
   return (
-    <div className="p-6 bg-blue-100 min-h-screen space-y-8">
-      <h1 className="text-2xl font-bold mb-4">Pronóstico</h1>
+    <div className="contenedor-pronostico">
+      <div className="pronostico-header">
+        <h1 className="pronostico-titulo">Pronóstico del Tiempo</h1>
+        {!loading && (
+          <p className="pronostico-ubicacion">
+            📍 <strong>{cityName}</strong>
+          </p>
+        )}
+      </div>
 
       {loading ? (
-        <p>Cargando datos...</p>
+        <div className="pronostico-loading">
+          <p>Cargando datos del clima...</p>
+        </div>
       ) : (
-        <>
-          <p className="text-lg">Mostrando resultados para: <strong>{cityName}</strong></p>
-          <div className="caja-horaria-y-dia">  
-            <div className="tiempo_hora_contenedor">
+        <div className="pronostico-contenido">
+          <div className="seccion-horaria">
+            <h2 className="seccion-titulo">Próximas Horas</h2>
+            <div className="tiempo_hora_contenedor_mejorado">
               {horas.map(hora => (
                 <CajaHora hora={hora} key={hora.dt} />
               ))}
             </div>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden mt-4">
+          </div>
+          
+          <div className="seccion-diaria">
+            <h2 className="seccion-titulo">Próximos Días</h2>
+            <div className="tiempo_dias_contenedor">
               {dias.map(dia => (
                 <CajaDia dia={dia} key={dia.date}/>
               ))}
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
